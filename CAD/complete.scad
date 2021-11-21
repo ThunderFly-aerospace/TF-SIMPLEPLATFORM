@@ -8,6 +8,11 @@ use <./src/888_1003.scad>
 
 
 
+// lock mechanism
+translate([400-ALU_profile_width*1.5, 0, 0])
+ALU_profile(height=60);
+
+/*
 // back support
 translate([400-ALU_profile_width*2, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, 75-35])
 rotate([90, 0, 90])
@@ -16,6 +21,7 @@ color([1, 0.5, 0])
 
 translate([400-ALU_profile_width*1.5, 0, 0])
 ALU_profile(height=75);
+*/
 
 
 // front support

@@ -173,3 +173,23 @@ front_holder_width = 160;
 front_holder_angle = 25;
 front_holder_height = 60;
 front_holder_offset = 15;
+
+solenoid_travel = 15;
+solenoid_force = 30;
+
+solenoid_joint_distance = 30;
+solenoid_joint_angle = 45;
+
+lock_grab_axle_dia = 13;
+lock_axle_diameter = 15;
+lock_holding_force = 20;
+lock_depth = 20;
+
+lock_push_force = pow(cos(solenoid_joint_angle), 2)*solenoid_force;
+lock_push_arm_length = tan(solenoid_joint_angle)*solenoid_joint_distance;
+lock_hold_arm_length = (lock_push_force*lock_push_arm_length)/lock_holding_force;
+lock_joint_arm_length = sqrt(pow(lock_push_arm_length, 2)+pow(solenoid_joint_distance, 2));
+
+servo_joint_offset = 30;
+servo_arm_length = 30;
+servo_arm_hole_length = 3;
