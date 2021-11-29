@@ -40,12 +40,12 @@ module 888_1005() {
 		cylinder(d=8.1, h=lock_depth+2, $fn=30);
 
 		translate([0, lock_push_arm_length, -1])
-		cylinder(d=M3_screw_diameter, h=lock_depth+2, $fn=30);
+		cylinder(d=M3_screw_diameter+.5, h=lock_depth+2, $fn=30);
 
 		// axle holes for second lock arm
 		for(i=[0:10:lock_depth]) {
-			translate([0, 0, i-.01])
-			cylinder(d=lock_axle_diameter+2, h=5.5, $fn=30);
+			translate([0, 0, i-.5])
+			cylinder(d=lock_axle_diameter+2, h=6, $fn=30);
 		}
 	}
 }
