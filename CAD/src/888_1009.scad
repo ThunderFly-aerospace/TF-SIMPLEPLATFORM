@@ -17,7 +17,7 @@ module 888_1009() {
 		}
 
 		translate([0, 0, -1])
-		cylinder(d=M3_screw_diameter, h=17, $fn=30);
+		cylinder(d=lock_screws_dia, h=17, $fn=30);
 
 		for(i=[10:2.725:19]) {
 			translate([0, i, -1])
@@ -26,10 +26,10 @@ module 888_1009() {
 
 		translate([servo_arm_length, 0, -1])
 		hull() {
-			cylinder(d=M3_screw_diameter+0.5, h=17, $fn=30);
+			cylinder(d=lock_screws_dia, h=17, $fn=30);
 
 			translate([servo_arm_hole_length, 0, 0])
-			cylinder(d=M3_screw_diameter+0.5, h=17, $fn=30);
+			cylinder(d=lock_screws_dia, h=17, $fn=30);
 		}
 	}
 }

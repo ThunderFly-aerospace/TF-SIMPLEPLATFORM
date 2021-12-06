@@ -11,10 +11,10 @@ module 888_1006() {
 		}
 
 	translate([0, 0, -1])
-	cylinder(d=M3_screw_diameter+0.5, h=17, $fn=30);
+	cylinder(d=lock_screws_dia, h=17, $fn=30);
 
 	translate([lock_joint_arm_length, 0, -1])
-	cylinder(d=M3_screw_diameter+.5, h=17, $fn=30);
+	cylinder(d=lock_screws_dia, h=17, $fn=30);
 	}
 }
 

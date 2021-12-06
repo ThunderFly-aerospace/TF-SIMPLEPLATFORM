@@ -168,28 +168,46 @@ bearing_thickness = 4;        // Rozměr B2 v nákresu
 bearing_shaft_length = 20;    // Rozměr B3 v nákresu
 
 
-//simple platform parameters
+//simple platform parameters ////////////////////////////////////////////
 front_holder_width = 160;
 front_holder_angle = 25;
 front_holder_height = 60;
 front_holder_offset = 15;
 
-solenoid_travel = 25;
-solenoid_force = 40;
+// lock moving servo parameters
+// static par.
+servo_length = 23.1;
+servo_width = 12.1;
+servo_height = 26.7;
+servo_axle_offset = 2.5;
+servo_axle_height = 5;
+servo_movement_angle = 40;
+servo_movement_angle_offset = -10; // angle offset up
+servo_force = 0.5; // [N/m] torque of servo
 
-solenoid_joint_distance = 23;
-solenoid_joint_angle = 60;
+// dynamic par.
+servo_arm_length = servo_width/2+ALU_profile_width/2+ALU_profile_holder_wall_thickness;
+servo_travel_y = cos(servo_movement_angle)*servo_arm_length;
+servo_arm_hole_length = (servo_arm_length/cos(servo_movement_angle+servo_movement_angle_offset))-servo_arm_length;
+servo_joint_offset = sin(servo_movement_angle+servo_movement_angle_offset)*(servo_arm_length+servo_arm_hole_length+5);
+servo_joint_offset_by_angle = -tan(servo_movement_angle_offset)*servo_arm_length;
+servo_max_linear_force = servo_force/(servo_arm_length/1000); // max servo linear force [N]
+servo_min_linear_force = cos(servo_movement_angle+abs(servo_movement_angle_offset))*servo_max_linear_force; // min servo linear force [N] in the most extreme position
+servo_holding_linear_force = cos(servo_movement_angle+servo_movement_angle_offset)*servo_max_linear_force; // min servo linear force [N] in holding position
 
-lock_grab_axle_dia = 13;
-lock_axle_diameter = 15;
-lock_holding_force = 20;
+// lock static parameters
+lock_screws_dia = 3.1;
 lock_depth = 20;
+lock_axle_diameter = 15;
+lock_grab_axle_dia = 13;
+lock_arms_joint_offset = 30;
+lock_arms_joint_angle = 55;
 
-lock_push_force = pow(cos(solenoid_joint_angle), 2)*solenoid_force;
-lock_push_arm_length = tan(solenoid_joint_angle)*solenoid_joint_distance;
-lock_hold_arm_length = (lock_push_force*lock_push_arm_length)/lock_holding_force;
-lock_joint_arm_length = sqrt(pow(lock_push_arm_length, 2)+pow(solenoid_joint_distance, 2));
+// lock dynamic parameters
+lock_push_force = (servo_holding_linear_force/cos(lock_arms_joint_angle))/cos(lock_arms_joint_angle); // lock arm pushing force on linear servo joint
+lock_push_arm_length = tan(lock_arms_joint_angle)*lock_arms_joint_offset;
+lock_arm_force_ratio = 1; // lock arm change holding force ratio (0.5 = arm will have half holding force)
+lock_hold_arm_length = lock_push_arm_length/lock_arm_force_ratio;
+lock_holding_force = lock_push_force*lock_arm_force_ratio;
+lock_joint_arm_length = sqrt(pow(lock_push_arm_length, 2)+pow(lock_arms_joint_offset, 2));
 
-servo_joint_offset = 25;
-servo_arm_length = 24;
-servo_arm_hole_length = sqrt(pow(solenoid_travel, 2)+pow(servo_arm_length, 2))-servo_arm_length;

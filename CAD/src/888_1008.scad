@@ -25,10 +25,10 @@ module 888_1008() {
 			cube([ALU_profile_holder_wall_thickness, 12+40+1+5, ALU_profile_width]);
 
 			// servo holders
-			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(solenoid_joint_distance+servo_joint_offset+2.5)+23.1, 0])
+			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)+23.1, 0])
 			cube([10+1+2, 6, 2]);
 
-			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(solenoid_joint_distance+servo_joint_offset+2.5)-6, 0])
+			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)-6, 0])
 			cube([10+1+2, 6, 2]);
 
 			translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, lock_axle_diameter/2+10, lock_depth/2+5])
@@ -52,7 +52,7 @@ module 888_1008() {
 		}
 
 
-		translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+12.1/2+.1, -(solenoid_joint_distance+servo_joint_offset+2)+23.1/2, 26.7/2])
+		translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+12.1/2+.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-0.5)+23.1/2, 26.7/2])
 		rotate([180, 0, 90])
 		D5313_servo(true);
 

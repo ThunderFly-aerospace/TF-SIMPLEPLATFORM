@@ -1,6 +1,5 @@
 include <../../parameters.scad>
 
-
 module D485HW_servo(screw_holes=false) {
 	difference() {
 		union() {
