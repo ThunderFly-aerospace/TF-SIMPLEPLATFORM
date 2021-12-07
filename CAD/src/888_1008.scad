@@ -23,13 +23,18 @@ module 888_1008() {
 
 			translate([ALU_profile_width+ALU_profile_holder_wall_thickness, -35.01-12-40-5, 0])
 			cube([ALU_profile_holder_wall_thickness, 12+40+1+5, ALU_profile_width]);
+            
+            // lib hole cover
+			translate([ALU_profile_width+ALU_profile_holder_wall_thickness+.01, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-15), 0])
+			cube([ALU_profile_holder_wall_thickness-.01, 20, ALU_profile_width]);
+            
 
 			// servo holders
 			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)+23.1, 0])
-			cube([10+1+2, 6, 2]);
-
+			cube([10+1+2, 6, 20]);
+            
 			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)-6, 0])
-			cube([10+1+2, 6, 2]);
+			cube([10+1+2, 6, 20]);
 
 			translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, lock_axle_diameter/2+10, lock_depth/2+5])
 			difference() {
@@ -52,9 +57,21 @@ module 888_1008() {
 		}
 
 
-		translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+12.1/2+.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-0.5)+23.1/2, 26.7/2])
+		translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+12.1/2+.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)+23.1/2, 26.7/2])
 		rotate([180, 0, 90])
-		D5313_servo(true);
+        union() {
+            translate([-28/2, 6.5/2, 0])
+            cylinder(d=1.5, h=30, $fn=30);
+    
+            translate([-28/2, -6.5/2, 0])
+            cylinder(d=1.5, h=30, $fn=30);
+    
+            translate([28/2, 6.5/2, 0])
+            cylinder(d=1.5, h=30, $fn=30);
+    
+            translate([28/2, -6.5/2, 0])
+            cylinder(d=1.5, h=30, $fn=30);
+        }
 
 		translate([0, -80, ALU_profile_width/2])
 		rotate([0, 90, 0])
