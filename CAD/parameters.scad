@@ -173,6 +173,7 @@ front_holder_width = 160;
 front_holder_angle = 25;
 front_holder_height = 60;
 front_holder_offset = 15;
+front_holder_height_offset = 75;
 
 // lock moving servo parameters
 // static par.
