@@ -1,6 +1,6 @@
 # Simple-platform
 
-Device for launching unmanned drones (especialy autogyro type) from moving platforms (eg car).
+Device for launching unmanned drones (especialy autogyro type) from moving platforms (e.g. automobile roof).
 
 ![TF-SIMPLEPLATFORM with TF-G2 mounted](doc/img/TF-SIMPLEPLATFORM_TF-G2.jpg)
 
