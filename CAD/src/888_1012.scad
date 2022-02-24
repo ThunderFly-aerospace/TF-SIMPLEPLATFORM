@@ -33,10 +33,10 @@ module 888_1012() {
 					translate([10+7.9/2, 20-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 
-					translate([-5+7.9/2, 35-6.1/2-1.8/2, 6])
+					translate([2+7.9/2, 35-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 
-					translate([-5+7.9/2, 20-6.1/2-1.8/2, 6])
+					translate([2+7.9/2, 20-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 				}
 				
@@ -100,10 +100,10 @@ module 888_1012() {
 		}
 
 		// microswitch holes for screws
-		translate([30+5.5, 30+2.5, -1])
+		translate([30+5.5, 30+2.5, 1])
 		cylinder(d=2, h=10, $fn=30);
 
-		translate([30+15, 30+2.5, -1])
+		translate([30+15, 30+2.5, 1])
 		cylinder(d=2, h=10, $fn=30);
 
 
@@ -121,11 +121,18 @@ module 888_1012() {
 			translate([7.9/2, 7.9/2, 10])
 			cylinder(d=2, h=12, $fn=30);
 		}
+
+		// cover ThunderFly text
+		translate([43, 20, .45])
+		rotate([0, 180, 0])
+		linear_extrude(height = 0.5) {
+			text("ThunderFly", size=7, font = "Cabin:style=Bold", valign="center", halign="center");
+		}
 	}
 }
 
 888_1012();
 
-translate([5+7.9/2, 25-6.1/2-1.8/2, 7.5/2-1.25])
-rotate([-90, 0, 0])
-#888_1011();
+//translate([5+7.9/2, 25-6.1/2-1.8/2, 7.5/2-1.25])
+//rotate([-90, 0, 0])
+//#888_1011();

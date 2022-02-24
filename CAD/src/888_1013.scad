@@ -39,11 +39,15 @@ module 888_1013() {
 			translate([7.9/2, 7.9/2, -0.01])
 			cylinder(d1=2, d2=4.65, h=2.1, $fn=30);
 		}
+				
+		// joint screw
+		translate([5+7.9/2, 25-6.1/2-1.8/2, -1])
+		cylinder(d=M6_nut_diameter, h=5, $fn=30);
 
 		// cover ThunderFly text
-		translate([35, 15, 1.55])
+		translate([43, 20, 1.55])
 		linear_extrude(height = 0.5) {
-			text("ThunderFly", size=7.5, font = "Cabin:style=Bold", valign="center", halign="center");
+			text("ThunderFly", size=7, font = "Cabin:style=Bold", valign="center", halign="center");
 		}
 
 	}

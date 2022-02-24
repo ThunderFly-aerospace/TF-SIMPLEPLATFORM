@@ -7,7 +7,7 @@ module 888_1011() {
 			translate([0, -7.5/2, 0])
 			union() {
 				rotate([90, 0, 0])
-				cylinder(d=M8_screw_diameter, h=7.5, $fn=30);
+				cylinder(d=7.8, h=7.5, $fn=30);
 
 				hull() {
 					rotate([90, 0, 0])
