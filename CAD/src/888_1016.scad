@@ -7,28 +7,28 @@ module 888_1016() {
 			translate([0, 0, 3/2])
 			cube([103.5, 20, 3], true);
 
-			translate([(160)/2, 0, 0])
-			cube([56.5, 20, 6], true);
+			translate([(103.2+56.5/2)/2, 0, 0])
+			cube([56.2/2, 20, 6], true);
 
-			translate([-(160)/2, 0, 0])
-			cube([56.5, 20, 6], true);
+			translate([-(103.2+56.5/2)/2, 0, 0])
+			cube([56.2/2, 20, 6], true);
 		}
 	
 		// holding screws slots
-		translate([160/2-42/2, 0, -5])
+		translate([(103.5+56.2/2)/2-15/2, 0, -5])
 		hull() {
 			cylinder(d=M6_screw_diameter, h=10, $fn=30);
 
-			translate([42, 0, 0])
+			translate([15, 0, 0])
 			cylinder(d=M6_screw_diameter, h=10, $fn=30);
 		}
 
 		rotate([0, 0, 180])
-		translate([160/2-42/2, 0, -5])
+		translate([(103.5+56.2/2)/2-15/2, 0, -5])
 		hull() {
 			cylinder(d=M6_screw_diameter, h=10, $fn=30);
 
-			translate([42, 0, 0])
+			translate([15, 0, 0])
 			cylinder(d=M6_screw_diameter, h=10, $fn=30);
 		}
 	
