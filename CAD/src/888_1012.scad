@@ -27,16 +27,16 @@ module 888_1012() {
 
 				// joint hole
 				hull() {
-					translate([10+7.9/2, 35-6.1/2-1.8/2, 6])
+					translate([10+7.9/2, 40-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 
-					translate([10+7.9/2, 20-6.1/2-1.8/2, 6])
+					translate([10+7.9/2, 22-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 
-					translate([2+7.9/2, 35-6.1/2-1.8/2, 6])
+					translate([2+7.9/2, 40-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 
-					translate([2+7.9/2, 20-6.1/2-1.8/2, 6])
+					translate([2+7.9/2, 22-6.1/2-1.8/2, 6])
 					cylinder(d=7.9, h=8, $fn=30);
 				}
 				
@@ -81,17 +81,41 @@ module 888_1012() {
 				}
 
 				// LEDs holes
-				translate([30, -2, 20/2])
-				rotate([0, 90, 90])
-				cylinder(d=5.01, h=10, $fn=30);
+				translate([28, 9, 10/2+20/2])
+				rotate([0, 90, 180])
+				cylinder(d=5.01, h=30, $fn=30);
 
-				translate([40, -2, 20/2])
-				rotate([0, 90, 90])
-				cylinder(d=5.01, h=10, $fn=30);
+				translate([28, 9, 10/2])
+				rotate([0, 90, 180])
+				cylinder(d=5.01, h=30, $fn=30);
+
+				hull() {
+					translate([28, 9, 10/2])
+					rotate([0, 90, 180])
+					cylinder(d=7.5, h=25, $fn=30);
+
+					translate([28, 9, 10/2+20/2])
+					rotate([0, 90, 180])
+					cylinder(d=7.5, h=25, $fn=30);
+				}
 
 				// microswitch hole
 				translate([30, 31, 6.5/2+2])
 				cube([20.1, 10, 6.5]);
+
+				// buzzer holes
+				translate([35, 10, 20/2])
+				rotate([90, 0, 0])
+				union() {
+					for(i=[0:60:360]) {
+						rotate([0, 0, i])
+						translate([3, 0, -5])
+						cylinder(d=1.5, h=30, $fn=30);
+					}
+
+					translate([0, 0, -5])
+					cylinder(d=1.5, h=30, $fn=30);
+				}
 			}
 			
 			// microswitch bed
@@ -128,6 +152,32 @@ module 888_1012() {
 		linear_extrude(height = 0.5) {
 			text("ThunderFly", size=7, font = "Cabin:style=Bold", valign="center", halign="center");
 		}
+	}
+
+
+	// holder wire holder
+	translate([72.5-0.1, 30, 0])
+	difference() {
+		hull() {
+			translate([-2.5, 0, 20/2])
+			cube([0.1, 7, 20], true);
+
+			cylinder(d=4, h=20, $fn=30);
+		}
+
+		translate([0, 0, -1])
+		cylinder(d=2.2, h=22, $fn=30);
+
+		translate([8, 10, 10])
+		rotate([90, 0, 0])
+		cylinder(d=20, h=20, $fn=120);
+	}
+
+	// support for joint
+	translate([6+7.9/2, 20+7.9/2, 20/2])
+	difference() {
+		cube([11, 16, 8], true);
+		cube([10, 15, 10], true);
 	}
 }
 
