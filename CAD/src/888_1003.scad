@@ -8,10 +8,10 @@ module 888_1003() {
 			hull() {
 				cube([ALU_profile_width/2, 5, ALU_profile_width]);
 
-				translate([ALU_profile_width/2+8, 30, 0])
+				translate([ALU_profile_width/2+10, 40, 0])
 				cylinder(d=5, h=ALU_profile_width, $fn=30);
 
-				translate([-8, 30, 0])
+				translate([-10, 20, 0])
 				cylinder(d=5, h=ALU_profile_width, $fn=30);
 			}
 		}
@@ -24,10 +24,10 @@ module 888_1003() {
 			translate([ALU_profile_width/4+5.5, 7.5, 0])
 			cylinder(d=5, h=ALU_profile_width+2, $fn=30);
 
-			translate([ALU_profile_width/2+6, 40, 0])
+			translate([ALU_profile_width/2+8, 50, 0])
 			cylinder(d=10, h=ALU_profile_width+2, $fn=30);
 
-			translate([-6, 40, 0])
+			translate([-10, 30, 0])
 			cylinder(d=10, h=ALU_profile_width+2, $fn=30);
 		}
 
