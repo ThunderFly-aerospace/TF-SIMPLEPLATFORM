@@ -12,6 +12,16 @@ module 888_1016() {
 
 			translate([-(103.2+56.5/2)/2, 0, 0])
 			cube([56.2/2, 20, 6], true);
+
+			translate([-30, 0, 0])
+			hull() {
+				translate([0, 0, -0.1])
+				cube([50, 20, 0.1], true);
+
+				translate([0, 0, 15])
+				rotate([90, 0, 0])
+				cylinder(d=30, h=10, $fn=60);
+			}
 		}
 	
 		// holding screws slots
@@ -34,10 +44,15 @@ module 888_1016() {
 	
 
 		// ThunderFly text
-		translate([0, 0, 2.55])
+		translate([25, 0, 2.55])
 		linear_extrude(height = 0.5) {
 			text("ThunderFly", size=7.5, font = "Cabin:style=Bold", valign="center", halign="center");
 		}
+
+		// crane hole
+		translate([-30, 11, 15])
+		rotate([90, 0, 0])
+		cylinder(d=20, h=22, $fn=60);
 	}
 }
 
