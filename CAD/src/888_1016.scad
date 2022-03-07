@@ -7,11 +7,11 @@ module 888_1016() {
 			translate([0, 0, 3/2])
 			cube([103.5, 20, 3], true);
 
-			translate([(103.2+56.5/2)/2, 0, 0])
-			cube([56.2/2, 20, 6], true);
+			translate([(103.2+54.5/2)/2, 0, -.5])
+			cube([54.2/2, 20, 7], true);
 
-			translate([-(103.2+56.5/2)/2, 0, 0])
-			cube([56.2/2, 20, 6], true);
+			translate([-(103.2+54.5/2)/2, 0, -.5])
+			cube([54.2/2, 20, 7], true);
 
 			translate([-30, 0, 0])
 			hull() {
@@ -21,6 +21,9 @@ module 888_1016() {
 				translate([0, 0, 15])
 				rotate([90, 0, 0])
 				cylinder(d=30, h=10, $fn=60);
+
+				translate([75, -5-5/2, -0.1])
+				cube([10, 5, 0.1], true);
 			}
 		}
 	
@@ -42,12 +45,14 @@ module 888_1016() {
 			cylinder(d=M6_screw_diameter, h=10, $fn=30);
 		}
 	
-
+		/*
 		// ThunderFly text
 		translate([25, 0, 2.55])
 		linear_extrude(height = 0.5) {
 			text("ThunderFly", size=7.5, font = "Cabin:style=Bold", valign="center", halign="center");
 		}
+		*/
+		
 
 		// crane hole
 		translate([-30, 11, 15])
