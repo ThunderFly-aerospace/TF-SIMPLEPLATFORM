@@ -10,7 +10,7 @@ module 888_1004() {
 			cube([10+servo_joint_offset, 12, 3], center=true);
 
 			translate([0, 0, -5/2])
-			cube([10+servo_joint_offset, 7.5, 5], center=true);
+			cube([10+servo_joint_offset, 8.5, 5], center=true);
 		}
 
 		translate([servo_joint_offset/2, 0, -7])

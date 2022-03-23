@@ -11,18 +11,35 @@ module 888_1005() {
 				cylinder(d=lock_screws_dia*2, h=lock_depth, $fn=30);
 
 				translate([lock_hold_arm_length, 0, 0])
-				difference() {
-					cylinder(d=lock_axle_diameter+2, h=lock_depth, $fn=30);
-		
-					translate([-lock_axle_diameter, -lock_axle_diameter*2, -1])
-					cube(lock_axle_diameter*2);
-				}
+				cylinder(d=lock_axle_diameter+2, h=lock_depth, $fn=30);
 			}
 
 			translate([0, lock_push_arm_length, 0])
-			cylinder(d=M3_nut_diameter+6, h=lock_depth, $fn=30);
+			hull() {
+				translate([lock_axle_diameter/4, 0, 0])
+				cylinder(d=lock_screws_dia*2, h=lock_depth, $fn=30);
 
-			cylinder(d=lock_axle_diameter, h=lock_depth, $fn=30);
+				translate([0, -15, 0])
+				cylinder(d=lock_screws_dia*2, h=lock_depth, $fn=30);
+
+				translate([-lock_arms_joint_offset, 0, 0])
+				cylinder(d=lock_screws_dia*2, h=lock_depth, $fn=30);
+			}
+
+			cylinder(d=lock_axle_diameter, h=lock_depth-.1, $fn=30);
+		}
+
+		// lock arm tooth and axle grabber
+		translate([lock_push_arm_length, 0, 0])
+		union() {
+			translate([0, -lock_axle_diameter*2+lock_tooth_width+1, -1])
+			cube([lock_axle_diameter, lock_axle_diameter*2, lock_depth/2+1.5]);
+
+			translate([-lock_hold_arm_length+lock_axle_diameter/2, -lock_axle_diameter*2, -1])
+			cube([lock_hold_arm_length-lock_axle_diameter+5, lock_axle_diameter*2, lock_depth+1.5]);
+
+			translate([-lock_hold_arm_length/2, -lock_axle_diameter*2-lock_tooth_width-0.5, -1])
+			cube([lock_hold_arm_length, lock_axle_diameter*2, lock_depth+2]);
 		}
 
 		// arm pusher shape
@@ -39,7 +56,7 @@ module 888_1005() {
 		translate([0, 0, -1])
 		cylinder(d=8.1, h=lock_depth+2, $fn=30);
 
-		translate([0, lock_push_arm_length, -1])
+		translate([-lock_arms_joint_offset, lock_push_arm_length, -1])
 		cylinder(d=lock_screws_dia, h=lock_depth+2, $fn=30);
 
 		// axle holes for second lock arm
@@ -64,6 +81,10 @@ module 888_1005() {
 			translate([0, 0, -2])
 			cylinder(d=lock_axle_diameter*2, h=lock_depth+4, $fn=30);
 		}
+
+		//translate([lock_hold_arm_length, 0, -1])
+		//cube([lock_depth, lock_tooth_width, lock_depth/2+1.5]);
+	
 	}
 }
 
