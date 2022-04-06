@@ -44,8 +44,20 @@ module 888_1015() {
 		}
 
 		// servo cable hole
-		translate([40, 20, -5])
-		cylinder(d=7, h=10, $fn=30);
+		translate([40, 20, 0])
+		cube([2.54*3+.2, 2.54+.2, 10], true);
+
+		// Servo text
+		translate([40, 25.5, 1.55])
+		linear_extrude(height = 0.5) {
+			text("Servo", size=2, font = "Cabin:style=Bold", valign="center", halign="center");
+			translate([0, -2.5, 0])
+			text("s + -", size=2, font = "Cabin:style=Bold", valign="center", halign="center");
+		}
+
+		// Sound buzzer hole
+		translate([80, 30, -5])
+		cylinder(d=32, h=10, $fn=80);
 
 		// ThunderFly text
 		translate([40+4, 2+4, 1.55])
