@@ -10,8 +10,8 @@ Servo servo;
 #define confirm_led_2_pin A1
 #define servo_pin 12
 
-const int32_t servo_pwm_min = 1350; // opened
-const int32_t servo_pwm_max = 1670; // locked
+const int32_t servo_pwm_min = 1900; // opened
+const int32_t servo_pwm_max = 1150; // locked
 
 uint32_t msg_number = 0;
 uint32_t open_btn = 0;
