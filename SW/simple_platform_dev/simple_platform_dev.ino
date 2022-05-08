@@ -20,13 +20,13 @@ NMEAParser<2> parser;
 
 
 
-const int32_t servo_pwm_min = 1150; // opened
-const int32_t servo_pwm_max = 1900; // locked
+const int32_t servo_pwm_min = 1100; // locked
+const int32_t servo_pwm_max = 1850; // opened
 
 
 /* MESSAGE TYPES
     $PLSTS,[ID_MSG],[LOCK_STATE],[BLOCK_STATE],[OPEN_BTN_STATE],[CONFIRM_BTN_STATE],[SERVO_PWM]
-    $PLLCK,[OPEN/LOCK],[REQ_CONFIRM],[TIMED],[TIME IN MS]
+    $PLLCK,[OPEN/LOCK],[REQ_CONFIRM],[REQ_TIME],[TIME IN MS]
     $PLBLK,[BLOCK/UNBLOCK]
 */
 
@@ -37,10 +37,12 @@ boolean block_state = 1;
 boolean open_btn_state = 0;
 boolean confirm_btn_state = 0;
 uint32_t servo_pwm = servo_pwm_min;
+uint32_t last_servo_change = 0;
+boolean last_servo_state = 0;
 
 boolean confirm_req = 0;
 boolean time_req = 0;
-uint32_t remaining_time = 0;
+int32_t remaining_time = 0;
 boolean waiting_for_confirm = 0;
 
 void readSerial() {
@@ -55,7 +57,7 @@ void errorHandler() {
 }
 
 void lockRequestHandler() {
-  //$PLLCK,[OPEN/LOCK],[REQ_CONFIRM],[TIMED],[TIME IN MS]
+  //$PLLCK,[OPEN/LOCK],[REQ_CONFIRM],[REQ_TIME],[TIME IN MS]
   int msg_open = 0;
   int msg_req_confirm = 0;
   int msg_req_time = 0;
@@ -116,11 +118,13 @@ void setup() {
 }
 
 void loop() {
+  checkBlocking();
 
   readSerial();
   readBtns();
 
   checkTime();
+  checkConfirm();
 
   sendStatusMsg();
   displayStatus();
@@ -133,9 +137,11 @@ void loop() {
 void readBtns() {
   open_btn_state = !digitalRead(open_btn_pin);
   confirm_btn_state = !digitalRead(confirm_btn_pin);
+}
 
-  if (confirm_req == 1) {
-    confirm_req = 0;
+void checkBlocking() {
+  if (block_state == 1) {
+    lock_state = 1;
   }
 }
 
@@ -145,19 +151,35 @@ void lockUpdate() {
     lock_state = 0;
   }
 
-  if (lock_state) {
-    servo_pwm = servo_pwm_max;
-  } else {
-    servo_pwm = servo_pwm_min;
+  if (lock_state != last_servo_state) {
+    last_servo_state = lock_state;
+    last_servo_change = msg_number;
+
+    if (lock_state) {
+      servo_pwm = servo_pwm_min;
+    } else {
+      servo_pwm = servo_pwm_max;
+    }
+
+    servo.writeMicroseconds(servo_pwm);
   }
 
-  servo.writeMicroseconds(servo_pwm);
+  if ((msg_number - last_servo_change) == 5) {
+    if (lock_state) {
+      servo_pwm = servo_pwm_min+50;
+    } else {
+      servo_pwm = servo_pwm_max-50;
+    }
+
+    servo.writeMicroseconds(servo_pwm);
+  }
 }
 
 void checkTime() {
   if (time_req == 1) {
     if (remaining_time > 0) {
       if (confirm_req == 0) {
+        lock_state = 0;
         // TODO: connect to IMU clock
         remaining_time -= 101;
       }
@@ -168,6 +190,13 @@ void checkTime() {
       block_state = 1;
       lock_state = 1;
     }
+  }
+}
+
+void checkConfirm() {
+  if (confirm_req == 1 && confirm_btn_state == 1 && block_state == 0) {
+    lock_state = 0;
+    confirm_req = 0;
   }
 }
 
