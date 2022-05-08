@@ -18,8 +18,6 @@ NMEAParser<2> parser;
 #define servo_pin 12
 #define buzzer_pin_1 A2
 
-
-
 const int32_t servo_pwm_min = 1100; // locked
 const int32_t servo_pwm_max = 1850; // opened
 
@@ -44,6 +42,9 @@ boolean confirm_req = 0;
 boolean time_req = 0;
 int32_t remaining_time = 0;
 boolean waiting_for_confirm = 0;
+uint32_t confirm_beep_time = 200;
+boolean confirm_beep = 0;
+uint32_t confirm_beep_counter =0;
 
 void readSerial() {
   while (Serial.available()) {
@@ -115,6 +116,18 @@ void setup() {
   parser.setErrorHandler(errorHandler);
   parser.addHandler("PLLCK", lockRequestHandler);
   parser.addHandler("PLBLK", blockRequestHandler);
+
+  // initialize timer1
+  noInterrupts(); // disable all interrupts
+  TCCR2A = 0;
+  TCCR2B = 0;
+  TCNT2 = confirm_beep_time;   // preload timer
+  OCR2A = 250;
+  TCCR2B |= (1 << CS22);    // 256 prescaler
+  TCCR2B |= (1 << CS21);
+  //TCCR2B |= (1 << CS20);
+  TIMSK2 |= (1 << TOIE1);   // enable timer overflow interrupt
+  interrupts(); // enable all interrupts
 }
 
 void loop() {
@@ -166,9 +179,9 @@ void lockUpdate() {
 
   if ((msg_number - last_servo_change) == 5) {
     if (lock_state) {
-      servo_pwm = servo_pwm_min+50;
+      servo_pwm = servo_pwm_min + 50;
     } else {
-      servo_pwm = servo_pwm_max-50;
+      servo_pwm = servo_pwm_max - 50;
     }
 
     servo.writeMicroseconds(servo_pwm);
@@ -253,13 +266,39 @@ int nmea0183_checksum(String nmea_data) {
 void displayStatus() {
   if (lock_state == 1) {
     digitalWrite(base_led_2_pin, HIGH);
+    digitalWrite(confirm_led_2_pin, HIGH);
   } else {
     digitalWrite(base_led_2_pin, LOW);
+    digitalWrite(confirm_led_2_pin, LOW);
   }
 
   if (block_state == 1) {
     digitalWrite(base_led_1_pin, HIGH);
   } else {
     digitalWrite(base_led_1_pin, LOW);
+  }
+
+  if (block_state == 0) {
+    if (lock_state == 1) {
+      confirm_beep = 1;
+    } else {
+      confirm_beep = 0;
+    }
+  } else {
+    confirm_beep = 0;
+  }
+}
+
+ISR(TIMER2_OVF_vect) {
+  TCNT2 = confirm_beep_time; // preload timer
+  if (confirm_beep == 0 && lock_state == 0) {
+    digitalWrite(confirm_led_1_pin, HIGH);
+  } else if (confirm_beep == 0) {
+    digitalWrite(confirm_led_1_pin, LOW);
+  } else {
+    confirm_beep_counter++;
+    if (confirm_beep_counter % 100 == 0) {
+      digitalWrite(confirm_led_1_pin, digitalRead(confirm_led_1_pin) ^ 1);
+    }
   }
 }
