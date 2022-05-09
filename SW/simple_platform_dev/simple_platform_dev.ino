@@ -44,7 +44,7 @@ int32_t remaining_time = 0;
 boolean waiting_for_confirm = 0;
 uint32_t confirm_beep_time = 200;
 boolean confirm_beep = 0;
-uint32_t confirm_beep_counter =0;
+uint32_t confirm_beep_counter = 0;
 
 void readSerial() {
   while (Serial.available()) {
@@ -138,6 +138,7 @@ void loop() {
 
   checkTime();
   checkConfirm();
+  checkOpenBtn();
 
   sendStatusMsg();
   displayStatus();
@@ -158,12 +159,14 @@ void checkBlocking() {
   }
 }
 
-void lockUpdate() {
+void checkOpenBtn() {
   if (open_btn_state) {
     resetParams();
     lock_state = 0;
   }
+}
 
+void lockUpdate() {
   if (lock_state != last_servo_state) {
     last_servo_state = lock_state;
     last_servo_change = msg_number;
@@ -219,7 +222,6 @@ void resetParams() {
   block_state = 1;
   open_btn_state = 0;
   confirm_btn_state = 0;
-  servo_pwm = servo_pwm_min;
 
   confirm_req = 0;
   time_req = 0;
@@ -293,12 +295,15 @@ ISR(TIMER2_OVF_vect) {
   TCNT2 = confirm_beep_time; // preload timer
   if (confirm_beep == 0 && lock_state == 0) {
     digitalWrite(confirm_led_1_pin, HIGH);
+    //digitalWrite(buzzer_pin_1, LOW);
   } else if (confirm_beep == 0) {
     digitalWrite(confirm_led_1_pin, LOW);
+    //digitalWrite(buzzer_pin_1, LOW);
   } else {
     confirm_beep_counter++;
     if (confirm_beep_counter % 100 == 0) {
       digitalWrite(confirm_led_1_pin, digitalRead(confirm_led_1_pin) ^ 1);
+      //digitalWrite(buzzer_pin_1, digitalRead(buzzer_pin_1) ^ 1);
     }
   }
 }
