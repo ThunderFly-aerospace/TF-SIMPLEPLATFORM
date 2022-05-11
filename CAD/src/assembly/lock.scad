@@ -116,9 +116,6 @@ module lock() {
 	rotate([-90, servo_arm_angle-90, -90])
 	color([0.5, 0.5, 0.5])
 	888_1009();
-
-	translate([ALU_profile_width/2, 0, -100-17])
-	#ALU_profile(height=100);
 }
 
 lock();
