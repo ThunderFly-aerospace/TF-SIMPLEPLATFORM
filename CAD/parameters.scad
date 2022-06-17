@@ -172,9 +172,9 @@ bearing_shaft_length = 20;    // Rozměr B3 v nákresu
 
 
 // Main cube profile lengths
-profile_length_x = 530;
-profile_length_y = 400;
-profile_length_z = 400;
+profile_length_x = 600;
+profile_length_y = 600;
+profile_length_z = 260;
 
 
 compresor_length_x = 410;

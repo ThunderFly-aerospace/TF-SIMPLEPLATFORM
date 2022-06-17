@@ -15,11 +15,6 @@ use <./src/assembly/cube_box.scad>
 main_box();
 
 
-// compresor
-translate([-profile_length_x/2, -profile_length_y/2, ALU_profile_width/2])
-#cube([compresor_length_x, compresor_length_y, compresor_length_z]);
-
-
 // whole platform supports and locking mechanism
 translate([-profile_length_x/2, 0, profile_length_z+3+ALU_profile_width])
 union() {
