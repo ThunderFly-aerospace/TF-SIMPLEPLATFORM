@@ -53,7 +53,7 @@ module lock() {
 
 	translate([.01, 0, -rail_position])
 	rotate([0, -90, 0])
-	color([.1, .1, 1])
+	color([1, .1, .1])
 	888_1004();
 
 	translate([0, joint_arm_move_x, -joint_arm_move_y])
@@ -91,13 +91,13 @@ module lock() {
 	translate([lock_depth+5.5, .1, 0])
 	rotate([0, -90, 0])
 	rotate([0, 0, lock_arm_angle])
-	color([.1, .1, 1])
+	color([1, .1, .1])
 	888_1005();
 
 	translate([5.5, -.1, 0])
 	rotate([180, -90, 0])
 	rotate([0, 0, lock_arm_angle])
-	color([.1, .1, 1])
+	color([1, .1, .1])
 	888_1005();
 	
 	translate([0, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, -10-lock_axle_diameter/2])

@@ -9,19 +9,22 @@ module 888_3001() {
 			hull() {
 				cube([ALU_profile_width+ALU_profile_holder_wall_thickness*2, ALU_profile_width+ALU_profile_holder_wall_thickness, ALU_profile_width+ALU_profile_holder_wall_thickness*2]);
 
-				translate([ALU_profile_width, 0, ALU_profile_width+ALU_profile_holder_wall_thickness+8])
+				translate([ALU_profile_width, 34-5, ALU_profile_width+ALU_profile_holder_wall_thickness+8])
 				rotate([-90, 0, 0])
-				cylinder(d=12, h=ALU_profile_width+ALU_profile_holder_wall_thickness, $fn=30);
+				cylinder(d=12, h=5, $fn=30);
 
 			}
 		}
 		
 		union() {
 			// cut the hole for axle
-			translate([ALU_profile_width, -2, ALU_profile_width+ALU_profile_holder_wall_thickness+8])
-			rotate([-90, 0, 0])
+			translate([ALU_profile_width, 40, ALU_profile_width+ALU_profile_holder_wall_thickness+8])
+			rotate([90, 0, 0])
 			union() {
 				cylinder(d=3.2, h=ALU_profile_width+ALU_profile_holder_wall_thickness*2, $fn=30);
+
+				translate([0, 0, 15])
+				cylinder(d=8, h=ALU_profile_width, $fn=30);
 
 				translate([0, 0, 10])
 				cylinder(d=6, h=ALU_profile_width, $fn=6);
