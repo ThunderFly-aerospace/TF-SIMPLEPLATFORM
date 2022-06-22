@@ -62,7 +62,9 @@ module main_box() {
 			}
 		}
 	}
+	
 
+	/*
 	// antenna holders 888_2002 - top
 	color([1, 1, 1])
 	for(rot=[0:3]) {
@@ -103,6 +105,7 @@ module main_box() {
 			888_2002();
 		}
 	}
+	*/
 }
 
 main_box();

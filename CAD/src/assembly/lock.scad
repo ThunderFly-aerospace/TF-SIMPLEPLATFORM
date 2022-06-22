@@ -53,68 +53,68 @@ module lock() {
 
 	translate([.01, 0, -rail_position])
 	rotate([0, -90, 0])
-	color([0, 0.8, 0])
+	color([.1, .1, 1])
 	888_1004();
 
 	translate([0, joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
-	color([0.7, 0.7, 0])
+	color([1, .1, .1])
 	888_1007();
 
 	translate([0, -joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
-	color([0.6, 0.6, 0])
+	color([1, .1, .1])
 	888_1007();
 
 	translate([-5, -joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
-	color([0.6, 0.6, 0])
+	color([1, .1, .1])
 	888_1007();
 
 	translate([-5, 0, -(lock_arms_joint_offset+rail_move+servo_joint_offset)])
 	rotate([0, 90, 0])
-	color([0.6, 0.6, 0])
+	color([1, .1, .1])
 	888_1007();
 
 	translate([-5, joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
 	rotate([0, 0, -joint_arm_angle])
-	color([1, 0.8, 0])
+	color([1, .1, .1])
 	888_1006();
 
 	translate([-10, -joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
 	rotate([0, 0, joint_arm_angle])
-	color([1, 0.6, 0])
+	color([1, .1, .1])
 	888_1006();
 
 	translate([lock_depth+5.5, .1, 0])
 	rotate([0, -90, 0])
 	rotate([0, 0, lock_arm_angle])
-	color([1, 0.6, 0])
+	color([.1, .1, 1])
 	888_1005();
 
 	translate([5.5, -.1, 0])
 	rotate([180, -90, 0])
 	rotate([0, 0, lock_arm_angle])
-	color([1, 0.8, 0])
+	color([.1, .1, 1])
 	888_1005();
 	
 	translate([0, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, -10-lock_axle_diameter/2])
 	rotate([90, 0, 90])
-	color([1, 0.3, 0])
+	color([1, 1, 1])
 	888_1008();
 
 	translate([0, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)+servo_axle_offset])
 	rotate([90, 0, 90])
 	translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+10.1/2, -6.5, 10])
 	rotate([0, 180, 90])
-	color([0.2, 0.2, 0.5])
+	color([0.2, 0.2, 0.2])
 	BMS_115HV_servo();
 
 	translate([-8.5, ALU_profile_width/2+ALU_profile_holder_wall_thickness+12.1/2, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)])
 	rotate([-90, servo_arm_angle-90, -90])
-	color([0.5, 0.5, 0.5])
+	color([1, .1, .1])
 	888_1009();
 }
 

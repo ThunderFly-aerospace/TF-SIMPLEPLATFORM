@@ -71,7 +71,7 @@ module 888_2002() {
 				hull() {
 					translate([0, 5, 0])
 					cylinder(d=7, h=200, $fn=30);
-					#cylinder(d=7.3, h=200, $fn=30);
+					cylinder(d=7.3, h=200, $fn=30);
 				}
 			}
 		}
