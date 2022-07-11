@@ -4,22 +4,31 @@
 #include <Servo.h>
 #include <NMEAParser.h>
 
-Servo servo;
+Servo servo_lock;
+Servo servo_rotor;
 
 /* A parser is declared with 2 handlers at most */
 NMEAParser<2> parser;
 
-#define open_btn_pin 8
-#define confirm_btn_pin 9
-#define base_led_1_pin 10
-#define base_led_2_pin 11
-#define confirm_led_1_pin A0
-#define confirm_led_2_pin A1
-#define servo_pin 12
-#define buzzer_pin_1 A2
+#define open_btn_pin 22
+#define confirm_btn_pin 23
+#define base_led_1_pin 20
+#define base_led_2_pin 21
+#define confirm_led_1_pin A2
+#define confirm_led_2_pin A3
+#define servo_lock_pin 12
+#define servo_rotor_pin 13
+#define buzzer_pin_1 A0
 
-const int32_t servo_pwm_min = 1100; // locked
-const int32_t servo_pwm_max = 1850; // opened
+#define led_1 28
+#define led_2 29
+#define led_3 30
+#define led_4 31
+
+const int32_t servo_lock_pwm_min = 1100; // locked
+const int32_t servo_lock_pwm_max = 1850; // opened
+const int32_t servo_rotor_pwm_min = 1000; // locked
+const int32_t servo_rotor_pwm_max = 2000; // opened
 
 
 /* MESSAGE TYPES
@@ -31,12 +40,17 @@ const int32_t servo_pwm_max = 1850; // opened
 uint32_t msg_number = 0;
 boolean lock_state = 1; // 0=opened, 1=locked
 boolean lock_position = 0;
+boolean rotor_lock_state = 1; // 0=opened, 1=locked
+boolean rotor_lock_position = 0;
 boolean block_state = 1;
 boolean open_btn_state = 0;
 boolean confirm_btn_state = 0;
-uint32_t servo_pwm = servo_pwm_min;
+uint32_t servo_lock_pwm = servo_lock_pwm_min;
+uint32_t servo_rotor_pwm = servo_rotor_pwm_min;
 uint32_t last_servo_change = 0;
 boolean last_servo_state = 0;
+uint32_t last_rotor_servo_change = 0;
+boolean last_rotor_servo_state = 0;
 
 boolean confirm_req = 0;
 boolean time_req = 0;
@@ -111,7 +125,8 @@ void setup() {
   pinMode(confirm_led_2_pin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
 
-  servo.attach(servo_pin, servo_pwm_min, servo_pwm_max);
+  servo_lock.attach(servo_lock_pin, servo_lock_pwm_min, servo_lock_pwm_max);
+  servo_rotor.attach(servo_rotor_pin, servo_rotor_pwm_min, servo_rotor_pwm_max);
 
   parser.setErrorHandler(errorHandler);
   parser.addHandler("PLLCK", lockRequestHandler);
@@ -144,6 +159,7 @@ void loop() {
   displayStatus();
 
   lockUpdate();
+  rotorLockUpdate();
 
   delay(100);
 }
@@ -163,6 +179,7 @@ void checkOpenBtn() {
   if (open_btn_state) {
     resetParams();
     lock_state = 0;
+    rotor_lock_state = 1;
   }
 }
 
@@ -172,23 +189,34 @@ void lockUpdate() {
     last_servo_change = msg_number;
 
     if (lock_state) {
-      servo_pwm = servo_pwm_min;
+      servo_lock_pwm = servo_lock_pwm_min;
     } else {
-      servo_pwm = servo_pwm_max;
+      servo_lock_pwm = servo_lock_pwm_max;
     }
 
-    servo.writeMicroseconds(servo_pwm);
+    servo_lock.writeMicroseconds(servo_lock_pwm);
   }
 
   if ((msg_number - last_servo_change) == 5) {
     if (lock_state) {
-      servo_pwm = servo_pwm_min + 50;
+      servo_lock_pwm = servo_lock_pwm_min + 50;
     } else {
-      servo_pwm = servo_pwm_max - 50;
+      servo_lock_pwm = servo_lock_pwm_max - 50;
     }
 
-    servo.writeMicroseconds(servo_pwm);
+    servo_lock.writeMicroseconds(servo_lock_pwm);
   }
+}
+
+void rotorLockUpdate() {
+  if (rotor_lock_state == 0) {
+    servo_rotor_pwm = servo_rotor_pwm_max;
+  } else {
+    servo_rotor_pwm = servo_rotor_pwm_min;
+  }
+    
+
+    servo_rotor.writeMicroseconds(servo_rotor_pwm);
 }
 
 void checkTime() {
@@ -214,11 +242,17 @@ void checkConfirm() {
     lock_state = 0;
     confirm_req = 0;
   }
+
+  if (confirm_btn_state == 1 && block_state == 0) {
+    rotor_lock_state = 0;
+  }
 }
 
 void resetParams() {
   lock_state = 1;
   lock_position = 0;
+  rotor_lock_state = 1;
+  rotor_lock_position = 0;
   block_state = 1;
   open_btn_state = 0;
   confirm_btn_state = 0;
@@ -236,13 +270,17 @@ void sendStatusMsg() {
   msg_str += ',';
   msg_str += lock_state;
   msg_str += ',';
+  msg_str += rotor_lock_state;
+  msg_str += ',';
   msg_str += block_state;
   msg_str += ',';
   msg_str += open_btn_state;
   msg_str += ',';
   msg_str += confirm_btn_state;
   msg_str += ',';
-  msg_str += servo_pwm;
+  msg_str += servo_lock_pwm;
+  msg_str += ',';
+  msg_str += servo_rotor_pwm;
 
   int checksum = nmea0183_checksum(msg_str);
 
@@ -269,15 +307,19 @@ void displayStatus() {
   if (lock_state == 1) {
     digitalWrite(base_led_2_pin, HIGH);
     digitalWrite(confirm_led_2_pin, HIGH);
+    digitalWrite(led_2, HIGH);
   } else {
     digitalWrite(base_led_2_pin, LOW);
     digitalWrite(confirm_led_2_pin, LOW);
+    digitalWrite(led_2, LOW);
   }
 
   if (block_state == 1) {
     digitalWrite(base_led_1_pin, HIGH);
+    digitalWrite(led_1, HIGH);
   } else {
     digitalWrite(base_led_1_pin, LOW);
+    digitalWrite(led_1, LOW);
   }
 
   if (block_state == 0) {

@@ -147,4 +147,48 @@ module BMS_115HV_servo(screw_holes=false) {
 	}
 }
 
-BMS_115HV_servo();
+module D485HW_servo(screw_holes=false) {
+	difference() {
+		union() {
+			cube([39.8, 19.8, 38], center=true);
+
+			translate([0, 0, 28-38/2+1.25/2])
+			cube([53.5, 19.8, 1.25], center=true);
+
+			translate([53.5/2-16.8, 0, 38/2-1])
+			cylinder(d=M5_screw_diameter, h=7.6, $fn=30);
+		}
+
+		if(screw_holes==false) {
+			translate([-48.5/2, 5, 0])
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+
+			translate([-48.5/2, -5, 0])
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+
+			translate([48.5/2, 5, 0])
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+
+			translate([48.5/2, -5, 0])
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		}
+	}
+
+	if(screw_holes==true) {
+		translate([-48.5/2, 5, 0])
+		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+
+		translate([-48.5/2, -5, 0])
+		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+
+		translate([48.5/2, 5, 0])
+		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+
+		translate([48.5/2, -5, 0])
+		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+	}
+}
+
+
+D485HW_servo();
+//BMS_115HV_servo();

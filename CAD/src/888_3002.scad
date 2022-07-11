@@ -15,65 +15,101 @@ module 888_3002(side=true) {
 	difference() {
 		union() {
 			hull() {
-				cylinder(d=16, h=16, $fn=30);
+				cylinder(d=16, h=40, $fn=30);
 
-				translate([-12, -5, 8])
+				translate([-12, -5, 28])
 				rotate([-90, 0, 0])
 				cylinder(d=10, h=10, $fn=30);
 
-				translate([12, -5, 8])
+				translate([12, -5, 28])
 				rotate([-90, 0, 0])
 				cylinder(d=10, h=10, $fn=30);
+
+				translate([-12, -5, 12])
+				rotate([-90, 0, 0])
+				cylinder(d=10, h=10, $fn=30);
+
+				translate([12, -5, 12])
+				rotate([-90, 0, 0])
+				cylinder(d=10, h=10, $fn=30);
+
+				translate([0, -9, 0])
+				rotate([-90, 0, 0])
+				cylinder(d=26, h=18, $fn=30);
 
 			}
 		}
 		
 		// cut side
 		if(side) {
-			translate([-30, 0, -5])
-			cube([100, 50, 40]);
+			translate([-30, 0, -50])
+			cube([200, 50, 100]);
 		} else {
-			translate([-30, -50, -5])
-			cube([100, 50, 40]);
+			translate([-30, -100, -50])
+			cube([200, 100, 100]);
 		}
 		
 		// carbon tube
-		translate([0, 0, -10])
+		translate([0, 0, 0])
 		cylinder(d=13, h=400, $fn=30);
 
-		// tube axle screw
-		translate([12, -8, 8])
+		// tube holding screws
+		translate([-12, -10, 28])
 		rotate([-90, 0, 0])
 		union() {
 			cylinder(d=3.2, h=16, $fn=30);
 			
 			cylinder(d=8, h=3, $fn=30);
 
-			translate([0, 0, 8])
-			cylinder(d=8, h=8, $fn=30);
+			translate([0, 0, 12])
+			cylinder(d=6, h=10, $fn=6);
 		}
-
-		// tube holding screw
-		translate([-12, -8, 8])
+		translate([12, -10, 28])
 		rotate([-90, 0, 0])
 		union() {
 			cylinder(d=3.2, h=16, $fn=30);
 			
 			cylinder(d=8, h=3, $fn=30);
 
-			translate([0, 0, 8])
-			cylinder(d=6, h=8, $fn=6);
+			translate([0, 0, 12])
+			cylinder(d=6, h=10, $fn=6);
 		}
+		translate([-12, -10, 12])
+		rotate([-90, 0, 0])
+		union() {
+			cylinder(d=3.2, h=16, $fn=30);
+			
+			cylinder(d=8, h=3, $fn=30);
+
+			translate([0, 0, 12])
+			cylinder(d=6, h=10, $fn=6);
+		}
+		translate([12, -10, 12])
+		rotate([-90, 0, 0])
+		union() {
+			cylinder(d=3.2, h=16, $fn=30);
+			
+			cylinder(d=8, h=3, $fn=30);
+
+			translate([0, 0, 12])
+			cylinder(d=6, h=10, $fn=6);
+		}
+
+		// bearing hole
+		translate([0, -15, 0])
+		rotate([-90, 0, 0])
+		cylinder(d=22, h=30, $fn=30);
 
 		// part gap
-		translate([-20, -1, -1])
-		cube([20, 2, 20]);
+		translate([-100, -1, -50])
+		cube([200, 2, 200]);
 
-		translate([0, -.1, -1])
-		cube([20, .2, 20]);
+		translate([0, -.1, -50])
+		cube([200, .2, 200]);
 	}
 }
 
+translate([0, 0, 11])
 #carbon_tube();
 
 888_3002();

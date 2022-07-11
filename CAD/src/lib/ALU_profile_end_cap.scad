@@ -1,8 +1,8 @@
 $fn=30;
 h=5;
-prof=30;
+prof=31;
 r=2;
-noches=8;
+noches=8.35;
 
 module ALU_profile_cap() {
     rotate([180,0,0]){
@@ -23,7 +23,7 @@ module outerCube(h=10){
 }
 
 module innerCube(h=10){
-	translate([0,0,h/2-.6]) cube([10.2,10.2,h+1], true);
+	translate([0,0,h/2-.6]) cube([14.2,14.2,h+1], true);
 }
 
 module notches(h=10){

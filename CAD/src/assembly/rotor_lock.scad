@@ -11,11 +11,12 @@ use <../888_3006.scad>
 
 module rotor_holder() {
 	arm_angle = 45*(sin(360*$t)+1);
+	//arm_angle = 0;
 
 	// arm unit
-	translate([0, 0, 50])
+	translate([0, 0, 16.5+50])
 	rotate([0, -arm_angle, 0])
-	translate([0, 0, -50])
+	translate([0, 0, 11])
 	group() {
 		// rotor holder
 		translate([0, 0, 450])
@@ -54,18 +55,19 @@ module rotor_holder() {
 	
 
 		// arm bottom holders
-		translate([0, 0, 50])
+		translate([0, 0, -11])
 		color([1, 1, 1])
 		888_3002();
 
-		translate([0, 0, 50])
+		translate([0, 0, -11])
 		color([1, 1, 1])
 		rotate([0, 0, 180])
 		888_3002();
 	}
 
 	// locking mechanism
-	translate([-ALU_profile_width/2-3.25, -ALU_profile_width-7-16/2, 16.5])
+	translate([ALU_profile_width/2+3.25, ALU_profile_width-7-16/2, 16.5])
+	rotate([0, 0, 180])
 	color([1, 1, 1])
 	888_3001();
 }
