@@ -169,6 +169,19 @@ bearing_shaft_length = 20;    // Rozměr B3 v nákresu
 
 
 //simple platform parameters ////////////////////////////////////////////
+
+
+// Main cube profile lengths
+profile_length_x = 600;
+profile_length_y = 600;
+profile_length_z = 260;
+
+
+compresor_length_x = 410;
+compresor_length_y = 140;
+compresor_length_z = 310;
+
+
 front_holder_width = 160;
 front_holder_angle = 25;
 front_holder_height = 60;
@@ -212,4 +225,3 @@ lock_arm_force_ratio = 1; // lock arm change holding force ratio (0.5 = arm will
 lock_hold_arm_length = lock_push_arm_length/lock_arm_force_ratio;
 lock_holding_force = lock_push_force*lock_arm_force_ratio;
 lock_joint_arm_length = lock_push_arm_length;
-

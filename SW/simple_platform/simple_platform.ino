@@ -1,3 +1,5 @@
+// compile as Arduino Duemilanove, ATmega328p
+
 #include <Servo.h>
 
 Servo servo;
@@ -9,9 +11,10 @@ Servo servo;
 #define confirm_led_1_pin A0
 #define confirm_led_2_pin A1
 #define servo_pin 12
+#define buzzer_pin_1 A2
 
-const int32_t servo_pwm_min = 1900; // opened
-const int32_t servo_pwm_max = 1150; // locked
+const int32_t servo_pwm_min = 1150; // opened
+const int32_t servo_pwm_max = 1900; // locked
 
 uint32_t msg_number = 0;
 uint32_t open_btn = 0;
@@ -25,6 +28,32 @@ uint32_t tick = 0;
 uint8_t time_to_unlock = 0;
 boolean requested_confirmation = 0;
 boolean unlocked_for_time = 0;
+
+char msg_buffer[1000];
+
+class serial_msg {
+  public:
+    serial_msg(char *msg);
+    parse_msg();
+    uint32_t msg_type_id;
+    uint32_t msg_value_arr[10];
+    char *raw_msg;
+};
+
+serial_msg::serial_msg(char *msg) {
+  this->raw_msg = msg;
+
+  parse_msg();
+}
+
+serial_msg::parse_msg() {
+  int parsed_chars = 0;
+  
+  while(parsed_char < sizeof(raw_msg)) {
+    
+    parsed_chars++;
+  }
+}
 
 void setup() {
   Serial.begin(115200);
@@ -43,7 +72,11 @@ void loop() {
 
   readBtns();
 
-  readSerial();
+  if (Serial.available() > 0) {
+    readSerial();
+  }
+  
+  //readSerialOld();
   
   checksOpening();
 
@@ -59,12 +92,19 @@ void loop() {
   delay(100);
 }
 
+void readSerial() {
+  while (Serial.available() > 0) {
+    
+    
+  }
+}
+
 void readBtns() {
   open_btn = !digitalRead(open_btn_pin);
   confirm_btn = !digitalRead(confirm_btn_pin);
 }
 
-void readSerial() {
+void readSerialOld() {
   if(Serial.available() > 0) {
     String msg_string = "";
     while(Serial.available() > 0) {
@@ -198,8 +238,10 @@ void confirmLedsUpdate() {
 void baseLedsUpdate() {
   if (lock_state) {
     digitalWrite(base_led_2_pin, HIGH);
+    digitalWrite(buzzer_pin_1, LOW);
   } else {
     digitalWrite(base_led_2_pin, LOW);
+    digitalWrite(buzzer_pin_1, HIGH);
   }
   
   if (open_btn) {
