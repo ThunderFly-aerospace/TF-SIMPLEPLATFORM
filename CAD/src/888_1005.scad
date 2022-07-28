@@ -32,8 +32,9 @@ module 888_1005() {
 		// lock arm tooth and axle grabber
 		translate([lock_push_arm_length, 0, 0])
 		union() {
-			translate([0, -lock_axle_diameter*2+lock_tooth_width+1, -1])
-			cube([lock_axle_diameter, lock_axle_diameter*2, lock_depth/2+1.5]);
+			for(i=[0:lock_depth/4:lock_depth])
+			translate([0, -lock_axle_diameter*2+lock_tooth_width+1, -.2+i])
+			cube([lock_axle_diameter, lock_axle_diameter*2, lock_depth/8+.4]);
 
 			translate([-lock_hold_arm_length+lock_axle_diameter/2, -lock_axle_diameter*2, -1])
 			cube([lock_hold_arm_length-lock_axle_diameter+5, lock_axle_diameter*2, lock_depth+1.5]);
@@ -54,7 +55,7 @@ module 888_1005() {
 
 		// axle holes
 		translate([0, 0, -1])
-		cylinder(d=8.1, h=lock_depth+2, $fn=30);
+		cylinder(d=8.2, h=lock_depth+2, $fn=30);
 
 		translate([-lock_arms_joint_offset, lock_push_arm_length, -1])
 		cylinder(d=lock_screws_dia, h=lock_depth+2, $fn=30);
