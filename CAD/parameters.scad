@@ -168,7 +168,7 @@ bearing_thickness = 4;        // Rozměr B2 v nákresu
 bearing_shaft_length = 20;    // Rozměr B3 v nákresu
 
 
-//simple platform parameters ////////////////////////////////////////////
+// Platform parameters ////////////////////////////////////////////
 
 
 // Main cube profile lengths
@@ -187,6 +187,9 @@ front_holder_angle = 25;
 front_holder_height = 60;
 front_holder_offset = 15;
 front_holder_height_offset = 75;
+
+starting_platform_length = 800;
+starting_platform_angle = 10;
 
 // lock moving servo parameters
 // static par.
