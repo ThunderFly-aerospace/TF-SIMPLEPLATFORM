@@ -107,13 +107,13 @@ module lock() {
 
 	translate([0, -ALU_profile_width/2-ALU_profile_holder_wall_thickness, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)+servo_axle_offset])
 	rotate([90, 0, 90])
-	translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+10.1/2, -6.5, 10])
+	translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+20/2+4.1, -3, 20])
 	rotate([0, 180, 90])
 	color([0.2, 0.2, 0.2])
-	BMS_115HV_servo();
+	LW20MG_servo();
 
-	translate([-8.5, ALU_profile_width/2+ALU_profile_holder_wall_thickness+12.1/2, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)])
-	rotate([-90, servo_arm_angle-90, -90])
+	translate([-5, ALU_profile_width/2+ALU_profile_holder_wall_thickness+15, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle)])
+	rotate([90, servo_arm_angle-90, -90])
 	color([1, .1, .1])
 	888_1009();
 }

@@ -1,7 +1,8 @@
 include <../parameters.scad>
 use <./lib/ALU_profile_holder_top.scad>
-
 use <./lib/servos.scad>
+
+
 
 module 888_1008() {
 	difference() {
@@ -25,17 +26,19 @@ module 888_1008() {
 			cube([ALU_profile_holder_wall_thickness, 12+40+1+5, ALU_profile_width]);
             
             // lib hole cover
-			translate([ALU_profile_width+ALU_profile_holder_wall_thickness+.01, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-15-servo_axle_offset), 0])
+			translate([ALU_profile_width+ALU_profile_holder_wall_thickness+.01, -40, 0])
 			cube([ALU_profile_holder_wall_thickness-.01, 20, ALU_profile_width]);
             
 
 			// servo holders
-			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)+22.8, 0])
-			cube([5.5, 6, 10]);
+			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)+35, 18])
+			cube([25, 8, 12.5]);
             
-			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)-6.8, 0])
-			cube([5.5, 6, 10]);
+			translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2-1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)-15, 18])
+			cube([25, 8, 12.5]);
 
+			/*
+			// support structure
 			translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, lock_axle_diameter/2+10, lock_depth/2+5])
 			difference() {
 				cube([10, 10, lock_depth+1], center=true);
@@ -43,6 +46,7 @@ module 888_1008() {
 				translate([0, 0, -1])
 				cube([10-1, 10-1, lock_depth+3], center=true);
 			}
+			*/
 		}
 
 		translate([ALU_profile_width/2+ALU_profile_holder_wall_thickness, lock_axle_diameter/2+10, -1])
@@ -57,11 +61,11 @@ module 888_1008() {
 		}
 
 
-		translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+10.1/2+.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)+23.2/2-0.5, 20/2])
-		rotate([0, 180, -90])
-		BMS_115HV_servo(true);
+		translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+20/2+4.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)+14, 20])
+		rotate([180, 0, -90])
+		LW20MG_servo(true);
 
-		translate([0, -80, ALU_profile_width/2])
+		translate([0, -60, ALU_profile_width/2])
 		rotate([0, 90, 0])
 		cylinder(d=M6_screw_diameter, h=60, $fn=30);
 	}
@@ -69,6 +73,6 @@ module 888_1008() {
 
 888_1008();
 
-translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+10.1/2+.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)+23.2/2-0.5, 20/2])
-rotate([0, 180, -90])
-#BMS_115HV_servo();
+translate([ALU_profile_width+ALU_profile_holder_wall_thickness*2+22/2+4.1, -(lock_arms_joint_offset+servo_joint_offset+servo_joint_offset_by_angle-servo_axle_offset)+14, 20])
+rotate([180, 0, -90])
+#LW20MG_servo();

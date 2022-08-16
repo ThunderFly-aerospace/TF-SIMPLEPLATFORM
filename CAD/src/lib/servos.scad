@@ -14,31 +14,31 @@ module D485HW_servo(screw_holes=false) {
 
 		if(screw_holes==false) {
 			translate([-48.5/2, 5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 			translate([-48.5/2, -5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 			translate([48.5/2, 5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 			translate([48.5/2, -5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 		}
 	}
 
 	if(screw_holes==true) {
 		translate([-48.5/2, 5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 		translate([-48.5/2, -5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 		translate([48.5/2, 5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 		translate([48.5/2, -5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 	}
 }
 
@@ -56,31 +56,31 @@ module D5313_servo(screw_holes=false) {
 
 		if(screw_holes==false) {
 			translate([-28/2, 6.5/2, 0])
-			cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+			cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 
 			translate([-28/2, -6.5/2, 0])
-			cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+			cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 
 			translate([28/2, 6.5/2, 0])
-			cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+			cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 
 			translate([28/2, -6.5/2, 0])
-			cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+			cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 		}
 	}
 
 	if(screw_holes==true) {
 		translate([-28/2, 6.5/2, 0])
-		cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+		cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 
 		translate([-28/2, -6.5/2, 0])
-		cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+		cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 
 		translate([28/2, 6.5/2, 0])
-		cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+		cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 
 		translate([28/2, -6.5/2, 0])
-		cylinder(d=M2_5_screw_diameter, h=30, $fn=30);
+		cylinder(d=M2_5_screw_diameter, h=60, $fn=30);
 	}
 }
 
@@ -121,18 +121,18 @@ module BMS_115HV_servo(screw_holes=false) {
 		if(screw_holes==false) {
 			hull() {
 				translate([-40/2, 20/2-4.5, -15])
-				cylinder(d=2, h=30, $fn=30);
+				cylinder(d=2, h=60, $fn=30);
 
 				translate([-27/2, 20/2-4.5, -15])
-				cylinder(d=2, h=30, $fn=30);
+				cylinder(d=2, h=60, $fn=30);
 			}
 
 			hull() {
 				translate([40/2, 20/2-4.5, -15])
-				cylinder(d=2, h=30, $fn=30);
+				cylinder(d=2, h=60, $fn=30);
 
 				translate([27/2, 20/2-4.5, -15])
-				cylinder(d=2, h=30, $fn=30);
+				cylinder(d=2, h=60, $fn=30);
 			}
 		}
 	}
@@ -140,10 +140,10 @@ module BMS_115HV_servo(screw_holes=false) {
 	rotate([90, 0, 0])
 	if(screw_holes==true) {
 		translate([-27/2, 20/2-4.5, -15])
-		cylinder(d=2, h=30, $fn=30);
+		cylinder(d=2, h=60, $fn=30);
 
 		translate([27/2, 20/2-4.5, -15])
-		cylinder(d=2, h=30, $fn=30);
+		cylinder(d=2, h=60, $fn=30);
 	}
 }
 
@@ -161,31 +161,31 @@ module LW20MG_servo(screw_holes=false) {
 
 		if(screw_holes==false) {
 			translate([-49/2, 5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 			translate([-49/2, -5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 			translate([49/2, 5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
 			translate([49/2, -5, 0])
-			cylinder(d=M3_screw_diameter, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=60, $fn=30);
 		}
 	}
 
 	if(screw_holes==true) {
-		translate([-49/2, 5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		translate([-49/2, 5, -20])
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
-		translate([-49/2, -5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		translate([-49/2, -5, -20])
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
-		translate([49/2, 5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		translate([49/2, 5, -20])
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 
-		translate([49/2, -5, 0])
-		cylinder(d=M3_screw_diameter, h=30, $fn=30);
+		translate([49/2, -5, -20])
+		cylinder(d=M3_screw_diameter, h=60, $fn=30);
 	}
 }
 

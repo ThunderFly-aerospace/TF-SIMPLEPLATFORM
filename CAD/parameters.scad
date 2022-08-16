@@ -193,17 +193,17 @@ starting_platform_angle = 10;
 
 // lock moving servo parameters
 // static par.
-servo_length = 23.2;
-servo_width = 10.1;
-servo_height = 20;
+servo_length = 40;
+servo_width = 20;
+servo_height = 40;
 servo_axle_offset = 12.5;
 servo_axle_height = 5;
 servo_movement_angle = 70;
 servo_movement_angle_offset = -35; // angle offset up
-servo_force = 0.43; // [N/m] torque of servo
+servo_force = 1.65; // [N/m] torque of servo
 
 // dynamic par.
-servo_arm_length = servo_width/2+ALU_profile_width/2+ALU_profile_holder_wall_thickness;
+servo_arm_length = servo_width/2+ALU_profile_width/2+ALU_profile_holder_wall_thickness+4;
 servo_travel_y = cos((servo_movement_angle-abs(servo_movement_angle_offset))/2)*servo_arm_length;
 servo_arm_hole_length = (servo_arm_length/cos(servo_movement_angle/2))-servo_arm_length+M3_screw_diameter;
 servo_joint_offset = sin(servo_movement_angle+servo_movement_angle_offset)*(servo_arm_length+servo_arm_hole_length)+servo_axle_offset;
