@@ -1,5 +1,6 @@
 include <../../parameters.scad>
 use <../lib/ALU_profile.scad>
+use <../lib/servos.scad>
 
 use <../888_3001.scad>
 use <../888_3002.scad>
@@ -70,6 +71,10 @@ module rotor_holder() {
 	rotate([0, 0, 180])
 	color([1, 1, 1])
 	888_3001();
+		
+	translate([0, 62, 57])
+	rotate([90, -90, 0])
+	#LW20MG_servo();
 }
 
 rotor_holder();
