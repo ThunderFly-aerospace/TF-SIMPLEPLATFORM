@@ -1,61 +1,31 @@
 include <../parameters.scad>
-use <./lib/ALU_profile_holder_top.scad>
+use <./lib/gears.scad>
 
 
 module 888_3003() {
 	difference() {
-		union() {
-			// axle hull
-			hull() {
-				rotate([-90, 0, 0])
-				cylinder(d=17, h=6, $fn=30);
+		pfeilkegelradpaar(modul=2, zahnzahl_rad=20, zahnzahl_ritzel=40, achsenwinkel=90, zahnbreite=8, bohrung_rad=3, bohrung_ritzel=22, eingriffswinkel=20, schraegungswinkel=30, zusammen_gebaut=false);
 		
-				translate([-5-17/2, 0, -7])
-				cube([5, 14, 14]);
-			}
-			
-			// top hull
-			hull() {
-				translate([-30-17/2, 0, -7])
-				cube([5, 14, 14]);
+		// removing other gear
+		translate([100, 0, 0])
+		cube(100, true);
 
-				translate([-30-40, 40-10, -10])
-				cube([15, 20, 20]);
-			}
-	
-			// connecting cube
-			translate([-30-17/2, 0, -7])
-			cube([30, 14, 14]);
-
-			// axle spacer
-			translate([0, -2.5, 0])
-			rotate([-90, 0, 0])
-			cylinder(d=12, h=6, $fn=30);
-		}
-
-		// axle hole
-		translate([0, -4, 0])
-		rotate([-90, 0, 0])
+		// axle for servo mount
+		translate([0, 0, -.1])
 		union() {
-			cylinder(d=9, h=20, $fn=30);
+			// bottom hole
+			cylinder(d=5, h=4-.1, $fn=30);
 
-			translate([0, 0, 5])	
-			hull() {
-				cylinder(d=13, h=15, $fn=30);
+			// top hole for screw head
+			translate([0, 0, 5])
+			cylinder(d=8, h=5, $fn=30);
 
-				translate([-18, 0, 0])	
-				cylinder(d=9, h=15, $fn=30);
+			// FOR for servo teeth
+			for(i=[0:24]) {
+				rotate([0, 0, i*(360/25)])
+				translate([5.5/2, 0, 0])
+				cylinder(d=1.5, h=4-.1, $fn=3);
 			}
-		}
-
-		// hole for tube
-		translate([-30, 35, 0])
-		rotate([0, -90, 0])
-		hull() {
-			cylinder(d=14, h=50, $fn=30);
-
-			translate([0, 30, 0])	
-			cylinder(d=14, h=50, $fn=30);
 		}
 	}
 }

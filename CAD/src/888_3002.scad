@@ -1,5 +1,6 @@
 include <../parameters.scad>
-use <./lib/ALU_profile_holder_top.scad>
+use <./lib/gears.scad>
+
 
 
 module carbon_tube() {
@@ -17,35 +18,46 @@ module 888_3002(side=true) {
 			hull() {
 				cylinder(d=16, h=40, $fn=30);
 
-				translate([-12, -5, 28])
+				translate([-12, -5, 26])
 				rotate([-90, 0, 0])
-				cylinder(d=10, h=10, $fn=30);
+				cylinder(d=10, h=15, $fn=30);
 
-				translate([12, -5, 28])
+				translate([12, -5, 26])
 				rotate([-90, 0, 0])
-				cylinder(d=10, h=10, $fn=30);
+				cylinder(d=10, h=15, $fn=30);
 
 				translate([-12, -5, 12])
 				rotate([-90, 0, 0])
-				cylinder(d=10, h=10, $fn=30);
+				cylinder(d=10, h=15, $fn=30);
 
 				translate([12, -5, 12])
 				rotate([-90, 0, 0])
-				cylinder(d=10, h=10, $fn=30);
+				cylinder(d=10, h=15, $fn=30);
 
 				translate([0, -9, 0])
 				rotate([-90, 0, 0])
 				cylinder(d=26, h=18, $fn=30);
 
 			}
+				
+
+			// gear
+			translate([0, 7.5, 0])
+			rotate([-90, 0, 0])
+			translate([-97.75, 0, 0])
+			difference() {
+				pfeilkegelradpaar(modul=2, zahnzahl_rad=20, zahnzahl_ritzel=40, achsenwinkel=90, zahnbreite=8, bohrung_rad=3, bohrung_ritzel=1, eingriffswinkel=20, schraegungswinkel=30, zusammen_gebaut=false);
+
+				cube(100, true);
+			}
 		}
 		
 		// cut side
 		if(side) {
-			translate([-30, 0, -50])
-			cube([200, 50, 100]);
+			translate([-100, 0, -50])
+			cube([200, 200, 100]);
 		} else {
-			translate([-30, -100, -50])
+			translate([-100, -100, -50])
 			cube([200, 100, 100]);
 		}
 		
@@ -54,51 +66,61 @@ module 888_3002(side=true) {
 		cylinder(d=13, h=400, $fn=30);
 
 		// tube holding screws
-		translate([-12, -10, 28])
+		translate([-12, -10, 26])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=16, $fn=30);
+			cylinder(d=3.2, h=30, $fn=30);
 			
-			cylinder(d=8, h=3, $fn=30);
+			cylinder(d=8, h=5, $fn=30);
 
-			translate([0, 0, 12])
+			translate([0, 0, 17])
 			cylinder(d=6, h=10, $fn=6);
 		}
-		translate([12, -10, 28])
+
+		translate([12, -10, 26])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=16, $fn=30);
+			cylinder(d=3.2, h=30, $fn=30);
 			
-			cylinder(d=8, h=3, $fn=30);
+			cylinder(d=8, h=5, $fn=30);
 
-			translate([0, 0, 12])
+			translate([0, 0, 17])
 			cylinder(d=6, h=10, $fn=6);
 		}
+
 		translate([-12, -10, 12])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=16, $fn=30);
+			cylinder(d=3.2, h=30, $fn=30);
 			
-			cylinder(d=8, h=3, $fn=30);
+			cylinder(d=8, h=5, $fn=30);
 
-			translate([0, 0, 12])
+			translate([0, 0, 17])
 			cylinder(d=6, h=10, $fn=6);
 		}
+
 		translate([12, -10, 12])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=16, $fn=30);
+			cylinder(d=3.2, h=30, $fn=30);
 			
-			cylinder(d=8, h=3, $fn=30);
+			cylinder(d=8, h=5, $fn=30);
 
-			translate([0, 0, 12])
+			translate([0, 0, 17])
 			cylinder(d=6, h=10, $fn=6);
 		}
 
 		// bearing hole
-		translate([0, -15, 0])
+		translate([0, -10, 0])
 		rotate([-90, 0, 0])
-		cylinder(d=22, h=30, $fn=30);
+		union() {
+			cylinder(d=20, h=30, $fn=30);
+
+			cylinder(d=22, h=7.5, $fn=30);
+
+			translate([0, 0, 21-8])
+			cylinder(d=22, h=20, $fn=30);
+		}
 
 		// part gap
 		translate([-100, -1, -50])

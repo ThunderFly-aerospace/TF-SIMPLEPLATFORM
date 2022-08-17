@@ -1,8 +1,9 @@
 include <../../parameters.scad>
 use <../lib/ALU_profile.scad>
 use <../lib/servos.scad>
+use <../lib/gears.scad>
 
-use <../888_3001.scad>
+//use <../888_3001.scad>
 use <../888_3002.scad>
 //use <../888_3003.scad>
 use <../888_3004.scad>
@@ -15,7 +16,7 @@ module rotor_holder() {
 	//arm_angle = 0;
 
 	// arm unit
-	translate([0, 0, 16.5+50])
+	translate([0, -10, 41])
 	rotate([0, -arm_angle, 0])
 	translate([0, 0, 11])
 	group() {
@@ -65,16 +66,21 @@ module rotor_holder() {
 		rotate([0, 0, 180])
 		888_3002();
 	}
-
-	// locking mechanism
-	translate([ALU_profile_width/2+3.25, ALU_profile_width-7-16/2, 16.5])
-	rotate([0, 0, 180])
-	color([1, 1, 1])
-	888_3001();
-		
-	translate([0, 62, 57])
-	rotate([90, -90, 0])
-	#LW20MG_servo();
+	
 }
 
 rotor_holder();
+
+// ALU profile
+rotate([0, 90, 0])
+translate([0, 0, -500])
+#ALU_profile(height=1000);
+
+// servo	
+translate([-9.75, -40, -20.5])
+rotate([0, 0, 0])
+#LW20MG_servo();
+
+translate([0, -40, 0])
+rotate([0, 0, -90])
+pfeilkegelradpaar(modul=2, zahnzahl_rad=20, zahnzahl_ritzel=40, achsenwinkel=90, zahnbreite=8, bohrung_rad=3, bohrung_ritzel=22, eingriffswinkel=20, schraegungswinkel=30, zusammen_gebaut=true);
