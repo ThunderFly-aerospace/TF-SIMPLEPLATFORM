@@ -6,7 +6,7 @@ brush_length = 30;
 brush_density = 5;
 brush_diameter = .5;
 
-module 888_3004(printplate=true) {
+module 888_3004(printplate=false) {
 	// holder
 	cube([3, 80, 20]);
 
