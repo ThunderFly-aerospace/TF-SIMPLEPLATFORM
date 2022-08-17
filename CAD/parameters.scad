@@ -213,7 +213,7 @@ servo_min_linear_force = cos(servo_movement_angle+abs(servo_movement_angle_offse
 servo_holding_linear_force = cos(servo_movement_angle+servo_movement_angle_offset)*servo_max_linear_force; // min servo linear force [N] in holding position
 
 // lock static parameters
-lock_screws_dia = 3.08;
+lock_screws_dia = 3.2;
 lock_depth = 20;
 lock_axle_diameter = 15;
 lock_grab_axle_dia = 13;
