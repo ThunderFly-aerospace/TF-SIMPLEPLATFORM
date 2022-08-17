@@ -54,7 +54,7 @@ module 888_1005(side=true) {
 				cylinder(d=.1, h=20, $fn=30);
 			}
 
-			translate([-lock_hold_arm_length+lock_axle_diameter/2, -lock_axle_diameter*2, -lock_depth/2])
+			translate([-lock_hold_arm_length+lock_axle_diameter/2, -lock_axle_diameter*2+.5, -lock_depth/2])
 			cube([lock_hold_arm_length-lock_axle_diameter+5, lock_axle_diameter*2, lock_depth*2]);
 
 			translate([-lock_hold_arm_length/2, -lock_axle_diameter*2-lock_tooth_width-0.5, -lock_depth/2])
