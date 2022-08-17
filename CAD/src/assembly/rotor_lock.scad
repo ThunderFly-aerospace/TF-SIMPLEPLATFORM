@@ -3,9 +3,9 @@ use <../lib/ALU_profile.scad>
 use <../lib/servos.scad>
 use <../lib/gears.scad>
 
-//use <../888_3001.scad>
+use <../888_3001.scad>
 use <../888_3002.scad>
-//use <../888_3003.scad>
+use <../888_3003.scad>
 use <../888_3004.scad>
 use <../888_3005.scad>
 use <../888_3006.scad>
@@ -14,6 +14,11 @@ use <../888_3006.scad>
 module rotor_holder() {
 	arm_angle = 45*(sin(360*$t)+1);
 	//arm_angle = 0;
+	
+
+	// Main holder part
+	color([1, 1, 1])
+	888_3001();
 
 	// arm unit
 	translate([0, -10, 41])
@@ -59,14 +64,25 @@ module rotor_holder() {
 		// arm bottom holders
 		translate([0, 0, -11])
 		color([1, 1, 1])
-		888_3002();
+		rotate([0, 0, 180])
+		888_3002(false);
 
 		translate([0, 0, -11])
 		color([1, 1, 1])
 		rotate([0, 0, 180])
 		888_3002();
 	}
-	
+
+	// servo gear
+	translate([0, -40, 0])
+	rotate([0, 0, -arm_angle*2])
+	888_3003();
+
+	// servo	
+	translate([-9.75, -40, -20.5])
+	rotate([0, 0, 0])
+	color([.2, .2, .2])
+	LW20MG_servo();
 }
 
 rotor_holder();
@@ -76,11 +92,8 @@ rotate([0, 90, 0])
 translate([0, 0, -500])
 #ALU_profile(height=1000);
 
-// servo	
-translate([-9.75, -40, -20.5])
-rotate([0, 0, 0])
-#LW20MG_servo();
-
+/*
 translate([0, -40, 0])
 rotate([0, 0, -90])
 pfeilkegelradpaar(modul=2, zahnzahl_rad=20, zahnzahl_ritzel=40, achsenwinkel=90, zahnbreite=8, bohrung_rad=3, bohrung_ritzel=22, eingriffswinkel=20, schraegungswinkel=30, zusammen_gebaut=true);
+*/
