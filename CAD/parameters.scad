@@ -221,6 +221,8 @@ lock_arms_joint_offset = 30;
 lock_arms_joint_angle = 89;
 lock_tooth_width = 2;
 
+lock_tube_angle = 5;
+
 // lock dynamic parameters
 lock_push_force = (servo_holding_linear_force/cos(lock_arms_joint_angle))/cos(lock_arms_joint_angle); // lock arm pushing force on linear servo joint
 lock_push_arm_length = 45;
