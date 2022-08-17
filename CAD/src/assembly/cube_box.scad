@@ -52,14 +52,6 @@ module main_box() {
 	translate([-profile_length_x/2-ALU_profile_width/2-2.5, 0, box_point_z+ALU_profile_width])
 	rotate([0, 0, 180])
 	888_2004();
-
-
-	// starting platform profile	
-	translate([0, 0, box_point_z+ALU_profile_width*.5])
-	rotate([0, 90+starting_platform_angle, 0])
-	translate([0, 0, -starting_platform_length/2])
-	color([.6, .6, .6])
-	ALU_profile(height=starting_platform_length);
 	
 	// corners of the box 888_2001
 	color([1, 1, 1])
