@@ -23,8 +23,8 @@ module 888_3003() {
 			// FOR for servo teeth
 			for(i=[0:24]) {
 				rotate([0, 0, i*(360/25)])
-				translate([5.5/2, 0, 0])
-				cylinder(d=1.5, h=4-.1, $fn=3);
+				translate([5/2, 0, 0])
+				cylinder(d=.6, h=4-.1, $fn=3);
 			}
 		}
 	}
