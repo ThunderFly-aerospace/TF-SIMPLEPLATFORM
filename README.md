@@ -23,3 +23,9 @@ The TF-SIMPLEPLATFORM is designed for launching of the unmanned [autogyro TF-G2]
 ## Clamps mount mechanism
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/33667517/145199846-9bce2bac-4c48-44a5-8a02-1203b1b1ec31.gif)
+
+## Usage
+
+![TF-SIMPLEPLATFORM trigger switch](doc/img/trigger_switch.jpg)
+
+![TF-SIMPLEPLATFORM trigger switch connection](doc/img/zapojeni_tlacitka.jpg)
