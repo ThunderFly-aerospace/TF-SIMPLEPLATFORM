@@ -1,0 +1,85 @@
+connectors:
+  MOX:
+    type: USB-A
+    show_pincount: false
+    pinlabels: [GND, VCC, Data+, Data-]
+  USB:
+    type: MLAB USB232R02A
+    show_pincount: false
+    pinlabels: [GND, VCC, Data+, Data-, RxD, TxD]
+  RS232:
+    type: MLAB RS232SINGLE01A
+    show_pincount: false
+    pinlabels: [GND, VCC, RxD, TxD, RxD, TxD]
+  Power_Connector:
+    type: 20A
+    show_pincount: false
+    pinlabels: [GND, 12v, RxD, TxD]
+  Main_Power:
+    type: Ground Station Power
+    show_pincount: false
+    pinlabels: [GND, 12v]
+
+cables:
+  GSW_1:
+    wirecount: 4
+    show_name: false
+    show_wirecount: false
+    colors: [BK, RD, WH, GN]
+  GSW_2:
+    wirecount: 4
+    show_name: false
+    show_wirecount: false
+    colors: [BK, RD, YE, GN]
+  GSW_3:
+    wirecount: 3
+    show_name: false
+    show_wirecount: false
+    colors: [BK, YE, GN]
+  GSW_4:
+    wirecount: 2
+    show_name: false
+    show_wirecount: false
+    colors: [BK, RD]
+
+connections:
+  -
+    - MOX: [1-4]
+    - GSW_1: [1-4]
+    - USB: [1,2,4,3]
+
+  -
+    - USB: [1, 2, 5, 6]
+    - GSW_2: [1, 2, 3, 4]
+    - RS232: [1, 2, 3, 4]
+
+  -
+    - RS232: [1, 5, 6]
+    - GSW_3: [1, 2, 3]
+    - Power_Connector: [1, 3, 4]
+
+  -
+    - Main_Power: [1, 2]
+    - GSW_4: [1, 2]
+    - Power_Connector: [1, 2]
+
+tweak:
+  override:
+    graph:
+      ranksep: "1"  # Reduce the horizontal spacing (default 2)
+    GSW_1:
+      shape: none  # Hide the surrounding frame
+      fontsize: "0.1"  # Reduce the space needed for text
+      fontcolor: white  # Same as background to hide the text
+    GSW_2:
+      shape: none  # Hide the surrounding frame
+      fontsize: "0.1"  # Reduce the space needed for text
+      fontcolor: white  # Same as background to hide the text
+    GSW_3:
+      shape: none  # Hide the surrounding frame
+      fontsize: "0.1"  # Reduce the space needed for text
+      fontcolor: white  # Same as background to hide the text
+    GSW_4:
+      shape: none  # Hide the surrounding frame
+      fontsize: "0.1"  # Reduce the space needed for text
+      fontcolor: white  # Same as background to hide the text

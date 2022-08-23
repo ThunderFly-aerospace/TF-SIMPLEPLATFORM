@@ -1,0 +1,9 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 2 wires	0	m	
+2	Cable, 3 wires	0	m	
+3	Cable, 4 wires	0	m	
+4	Connector, 20A	1		Power_Connector
+5	Connector, Ground Station Power	1		Main_Power
+6	Connector, MLAB RS232SINGLE01A	1		RS232
+7	Connector, MLAB USB232R02A	1		USB
+8	Connector, USB-A	1		MOX
