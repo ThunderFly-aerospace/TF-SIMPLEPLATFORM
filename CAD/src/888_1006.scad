@@ -2,7 +2,7 @@ include <../parameters.scad>
 
 
 module 888_1006() {
-	tolerance_fix = 2; // generated lock model calculate without tolerances. This is to counter lock have any movement.
+	tolerance_fix = 1; // generated lock model calculate without tolerances. This is to counter lock have any movement.
 
 	difference() {
 		hull() {
