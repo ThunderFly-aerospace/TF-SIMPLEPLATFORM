@@ -1,5 +1,14 @@
 
-// compile as Arduino Duemilanove, ATmega328p
+// compile as MightyCore ////////////////////////////////
+// Board: ATmega1284
+// Clock: External 16MHZ
+// BOD: BOD 2.7V
+// EEPROM: EEPROM retained
+// Compiler LTO: LTO disabled
+// Variant: 1284p
+// Pinout: Standard pinout
+// Bootloader: Yes (UART0)
+//////////////////////////////////////////////////////////
 
 #include <Servo.h>
 #include <NMEAParser.h>
@@ -10,12 +19,13 @@ Servo servo_rotor;
 /* A parser is declared with 2 handlers at most */
 NMEAParser<2> parser;
 
-#define open_btn_pin 22
+#define reset_btn_pin 22
+#define prep_btn_pin 18
 #define confirm_btn_pin 23
 #define base_led_1_pin 20
 #define base_led_2_pin 21
-#define confirm_led_1_pin A2
-#define confirm_led_2_pin A3
+#define confirm_led_1_pin 26
+#define confirm_led_2_pin 19
 #define servo_lock_pin 12
 #define servo_rotor_pin 13
 #define buzzer_pin_1 A0
@@ -25,14 +35,14 @@ NMEAParser<2> parser;
 #define led_3 30
 #define led_4 31
 
-const int32_t servo_lock_pwm_min = 1100; // locked
-const int32_t servo_lock_pwm_max = 1850; // opened
-const int32_t servo_rotor_pwm_min = 1000; // locked
-const int32_t servo_rotor_pwm_max = 2000; // opened
+const int32_t servo_lock_pwm_min = 500; // opened
+const int32_t servo_lock_pwm_max = 970; // locked
+const int32_t servo_rotor_pwm_min = 500; // locked
+const int32_t servo_rotor_pwm_max = 2500; // opened
 
 
 /* MESSAGE TYPES
-    $PLSTS,[ID_MSG],[LOCK_STATE],[BLOCK_STATE],[OPEN_BTN_STATE],[CONFIRM_BTN_STATE],[SERVO_PWM]
+    $PLSTS,[ID_MSG],[LOCK_STATE],[BLOCK_STATE],[reset_btn_state],[CONFIRM_BTN_STATE],[SERVO_PWM]
     $PLLCK,[OPEN/LOCK],[REQ_CONFIRM],[REQ_TIME],[TIME IN MS]
     $PLBLK,[BLOCK/UNBLOCK]
 */
@@ -42,15 +52,15 @@ boolean lock_state = 1; // 0=opened, 1=locked
 boolean lock_position = 0;
 boolean rotor_lock_state = 1; // 0=opened, 1=locked
 boolean rotor_lock_position = 0;
+boolean prep_rotor_lock = 0;
 boolean block_state = 1;
-boolean open_btn_state = 0;
+boolean reset_btn_state = 0;
+boolean prep_btn_state = 0;
+uint32_t prep_btn_counter = 0;
+boolean prep_btn_lock = 0;
 boolean confirm_btn_state = 0;
 uint32_t servo_lock_pwm = servo_lock_pwm_min;
 uint32_t servo_rotor_pwm = servo_rotor_pwm_min;
-uint32_t last_servo_change = 0;
-boolean last_servo_state = 0;
-uint32_t last_rotor_servo_change = 0;
-boolean last_rotor_servo_state = 0;
 
 boolean confirm_req = 0;
 boolean time_req = 0;
@@ -58,7 +68,12 @@ int32_t remaining_time = 0;
 boolean waiting_for_confirm = 0;
 uint32_t confirm_beep_time = 200;
 boolean confirm_beep = 0;
+uint32_t confirm_beep_delay = 10;
+uint32_t confirm_beep_interval = 1000;
 uint32_t confirm_beep_counter = 0;
+uint32_t time_change = 0;
+uint32_t last_time_msg_send = 0;
+uint32_t actual_time = 0;
 
 void readSerial() {
   while (Serial.available()) {
@@ -116,7 +131,8 @@ void blockRequestHandler() {
 void setup() {
   Serial.begin(115200);
 
-  pinMode(open_btn_pin, INPUT_PULLUP);
+  pinMode(reset_btn_pin, INPUT_PULLUP);
+  pinMode(prep_btn_pin, INPUT_PULLUP);
   pinMode(confirm_btn_pin, INPUT_PULLUP);
 
   pinMode(base_led_1_pin, OUTPUT);
@@ -124,6 +140,7 @@ void setup() {
   pinMode(confirm_led_1_pin, OUTPUT);
   pinMode(confirm_led_2_pin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(buzzer_pin_1, OUTPUT);
 
   servo_lock.attach(servo_lock_pin, servo_lock_pwm_min, servo_lock_pwm_max);
   servo_rotor.attach(servo_rotor_pin, servo_rotor_pwm_min, servo_rotor_pwm_max);
@@ -136,7 +153,7 @@ void setup() {
   noInterrupts(); // disable all interrupts
   TCCR2A = 0;
   TCCR2B = 0;
-  TCNT2 = confirm_beep_time;   // preload timer
+  TCNT2 = 256;   // preload timer
   OCR2A = 250;
   TCCR2B |= (1 << CS22);    // 256 prescaler
   TCCR2B |= (1 << CS21);
@@ -154,18 +171,22 @@ void loop() {
   checkTime();
   checkConfirm();
   checkOpenBtn();
+  checkPrepBtn();
 
-  sendStatusMsg();
+  actual_time = millis();
+  time_change = actual_time - last_time_msg_send;
+  if (time_change > 100) {
+    sendStatusMsg();
+  }
   displayStatus();
 
   lockUpdate();
   rotorLockUpdate();
-
-  delay(100);
 }
 
 void readBtns() {
-  open_btn_state = !digitalRead(open_btn_pin);
+  reset_btn_state = !digitalRead(reset_btn_pin);
+  prep_btn_state = !digitalRead(prep_btn_pin);
   confirm_btn_state = !digitalRead(confirm_btn_pin);
 }
 
@@ -176,47 +197,40 @@ void checkBlocking() {
 }
 
 void checkOpenBtn() {
-  if (open_btn_state) {
+  if (reset_btn_state) {
     resetParams();
     lock_state = 0;
-    rotor_lock_state = 1;
+  }
+}
+
+void checkPrepBtn() {
+  if (prep_btn_state == 1 && prep_btn_counter == 0 && prep_btn_lock == 0) {
+    prep_btn_counter = 3;
+    rotor_lock_state = !rotor_lock_state;
+    prep_btn_lock = 1;
+    prep_rotor_lock = 1;
+  } else if (prep_btn_state == 0 && prep_btn_counter == 0 && prep_btn_lock == 1) {
+    prep_btn_lock = 0;
+  } else if (prep_btn_counter > 0) {
+    prep_btn_counter--;
   }
 }
 
 void lockUpdate() {
-  if (lock_state != last_servo_state) {
-    last_servo_state = lock_state;
-    last_servo_change = msg_number;
-
-    if (lock_state) {
-      servo_lock_pwm = servo_lock_pwm_min;
-    } else {
-      servo_lock_pwm = servo_lock_pwm_max;
-    }
-
-    servo_lock.writeMicroseconds(servo_lock_pwm);
+  if (!lock_state) {
+    servo_lock.writeMicroseconds(servo_lock_pwm_min);
+  } else {
+    servo_lock.writeMicroseconds(servo_lock_pwm_max);
   }
 
-  if ((msg_number - last_servo_change) == 5) {
-    if (lock_state) {
-      servo_lock_pwm = servo_lock_pwm_min + 50;
-    } else {
-      servo_lock_pwm = servo_lock_pwm_max - 50;
-    }
-
-    servo_lock.writeMicroseconds(servo_lock_pwm);
-  }
 }
 
 void rotorLockUpdate() {
-  if (rotor_lock_state == 0) {
-    servo_rotor_pwm = servo_rotor_pwm_max;
+  if (rotor_lock_state == 1) {
+    servo_rotor.writeMicroseconds(servo_rotor_pwm_max);
   } else {
-    servo_rotor_pwm = servo_rotor_pwm_min;
+    servo_rotor.writeMicroseconds(servo_rotor_pwm_min);
   }
-    
-
-    servo_rotor.writeMicroseconds(servo_rotor_pwm);
 }
 
 void checkTime() {
@@ -251,10 +265,9 @@ void checkConfirm() {
 void resetParams() {
   lock_state = 1;
   lock_position = 0;
-  rotor_lock_state = 1;
   rotor_lock_position = 0;
   block_state = 1;
-  open_btn_state = 0;
+  reset_btn_state = 0;
   confirm_btn_state = 0;
 
   confirm_req = 0;
@@ -264,7 +277,8 @@ void resetParams() {
 }
 
 void sendStatusMsg() {
-  //$PLSTS,[ID_MSG],[LOCK_STATE],[BLOCK_STATE],[OPEN_BTN_STATE],[CONFIRM_BTN_STATE],[SERVO_PWM]
+  //$PLSTS,[ID_MSG],[LOCK_STATE],[BLOCK_STATE],[reset_btn_state],[CONFIRM_BTN_STATE],[SERVO_PWM]
+
   String msg_str = "$PLSTS,";
   msg_str += msg_number;
   msg_str += ',';
@@ -274,7 +288,7 @@ void sendStatusMsg() {
   msg_str += ',';
   msg_str += block_state;
   msg_str += ',';
-  msg_str += open_btn_state;
+  msg_str += reset_btn_state;
   msg_str += ',';
   msg_str += confirm_btn_state;
   msg_str += ',';
@@ -289,6 +303,7 @@ void sendStatusMsg() {
 
   Serial.print(msg_str);
   Serial.println(String(checksum, HEX));
+  last_time_msg_send = millis();
 }
 
 int nmea0183_checksum(String nmea_data) {
@@ -308,10 +323,12 @@ void displayStatus() {
     digitalWrite(base_led_2_pin, HIGH);
     digitalWrite(confirm_led_2_pin, HIGH);
     digitalWrite(led_2, HIGH);
+    //digitalWrite(buzzer_pin_1, LOW);
   } else {
     digitalWrite(base_led_2_pin, LOW);
     digitalWrite(confirm_led_2_pin, LOW);
     digitalWrite(led_2, LOW);
+    //digitalWrite(buzzer_pin_1, HIGH);
   }
 
   if (block_state == 1) {
@@ -323,10 +340,12 @@ void displayStatus() {
   }
 
   if (block_state == 0) {
-    if (lock_state == 1) {
-      confirm_beep = 1;
+    confirm_beep = 1;
+
+    if (rotor_lock_state) {
+      confirm_beep_interval = 50;
     } else {
-      confirm_beep = 0;
+      confirm_beep_interval = 20;
     }
   } else {
     confirm_beep = 0;
@@ -334,18 +353,24 @@ void displayStatus() {
 }
 
 ISR(TIMER2_OVF_vect) {
-  TCNT2 = confirm_beep_time; // preload timer
-  if (confirm_beep == 0 && lock_state == 0) {
-    digitalWrite(confirm_led_1_pin, HIGH);
-    //digitalWrite(buzzer_pin_1, LOW);
-  } else if (confirm_beep == 0) {
-    digitalWrite(confirm_led_1_pin, LOW);
-    //digitalWrite(buzzer_pin_1, LOW);
-  } else {
-    confirm_beep_counter++;
-    if (confirm_beep_counter % 100 == 0) {
-      digitalWrite(confirm_led_1_pin, digitalRead(confirm_led_1_pin) ^ 1);
+  confirm_beep_counter++;
+  if (confirm_beep) {
+    if (confirm_beep_counter % confirm_beep_interval == 0) {
+      digitalWrite(confirm_led_1_pin, HIGH);
+      digitalWrite(buzzer_pin_1, HIGH);
       //digitalWrite(buzzer_pin_1, digitalRead(buzzer_pin_1) ^ 1);
+    } else if (confirm_beep_counter % (confirm_beep_interval + confirm_beep_delay) == 0) {
+      digitalWrite(confirm_led_1_pin, LOW);
+      digitalWrite(buzzer_pin_1, LOW);
+      confirm_beep_counter = 0;
+    }
+  } else {
+    if (lock_state) {
+      digitalWrite(confirm_led_1_pin, LOW);
+      digitalWrite(buzzer_pin_1, LOW);
+    } else {
+      digitalWrite(confirm_led_1_pin, HIGH);
+      digitalWrite(buzzer_pin_1, HIGH);
     }
   }
 }
