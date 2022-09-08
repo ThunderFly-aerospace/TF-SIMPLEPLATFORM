@@ -44,7 +44,9 @@ const int32_t servo_rotor_pwm_max = 2500; // opened
 /* MESSAGE TYPES
     $PLSTS,[ID_MSG],[LOCK_STATE],[BLOCK_STATE],[reset_btn_state],[CONFIRM_BTN_STATE],[SERVO_PWM]
     $PLLCK,[OPEN/LOCK],[REQ_CONFIRM],[REQ_TIME],[TIME IN MS]
+    $PLLCK,0,0,1,5000*6C
     $PLBLK,[BLOCK/UNBLOCK]
+    $PLBLK,0*45
 */
 
 uint32_t msg_number = 0;
@@ -173,15 +175,13 @@ void loop() {
   checkOpenBtn();
   checkPrepBtn();
 
-  actual_time = millis();
-  time_change = actual_time - last_time_msg_send;
-  if (time_change > 100) {
-    sendStatusMsg();
-  }
+  sendStatusMsg();
   displayStatus();
 
   lockUpdate();
   rotorLockUpdate();
+
+  delay(100);
 }
 
 void readBtns() {
@@ -217,20 +217,23 @@ void checkPrepBtn() {
 }
 
 void lockUpdate() {
-  if (!lock_state) {
-    servo_lock.writeMicroseconds(servo_lock_pwm_min);
+  if (lock_state) {
+    servo_lock_pwm = servo_lock_pwm_max;
   } else {
-    servo_lock.writeMicroseconds(servo_lock_pwm_max);
+    servo_lock_pwm = servo_lock_pwm_min;
   }
 
+  servo_lock.writeMicroseconds(servo_lock_pwm);
 }
 
 void rotorLockUpdate() {
-  if (rotor_lock_state == 1) {
-    servo_rotor.writeMicroseconds(servo_rotor_pwm_max);
+  if (rotor_lock_state) {
+    servo_rotor_pwm = servo_rotor_pwm_max;
   } else {
-    servo_rotor.writeMicroseconds(servo_rotor_pwm_min);
+    servo_rotor_pwm = servo_rotor_pwm_min;
   }
+
+  servo_rotor.writeMicroseconds(servo_rotor_pwm);
 }
 
 void checkTime() {
