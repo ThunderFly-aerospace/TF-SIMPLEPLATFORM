@@ -1,0 +1,13 @@
+Id	Description	Qty	Unit	Designators
+1	Cable, 10 wires	0	m	
+2	Cable, 2 wires	0	m	
+3	Cable, 8 wires	0	m	
+4	Cable, 9 wires	0	m	
+5	Connector	4		Confirm_Btn_Connector, Platform_LED_1, Platform_LED_2, Servo_Connector
+6	Connector, 20A	1		Power_Connector
+7	Connector, GQ12B-10/R/A	2		Reset_Button, Rotor_Button
+8	Connector, MLAB ATmegaTQ4401A	1		Arduino
+9	Connector, MLAB BATPOWER04C	1		Power_Module
+10	Connector, MLAB NFET4X01B	1		NFET
+11	Connector, MLAB RS232SINGLE01A	1		RS232
+12	Connector, SC235 AF	1		Buzzer

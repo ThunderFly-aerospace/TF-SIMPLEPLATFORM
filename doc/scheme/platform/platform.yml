@@ -1,0 +1,144 @@
+connectors:
+  Power_Connector:
+    type: 20A
+    show_pincount: false
+    pinlabels: [TxD, 12v, GND, RxD]
+  RS232:
+    type: MLAB RS232SINGLE01A
+    show_pincount: false
+    pinlabels: [GND, VCC, RxD(12v), TxD(12v), RxD(5v), TxD(5v)]
+  Power_Module:
+    type: MLAB BATPOWER04C
+    show_pincount: false
+    pinlabels: [GND, 12v, 5v]
+  Arduino:
+    type: MLAB ATmegaTQ4401A
+    show_pincount: false
+    pinlabels: [GND, VCC, RESET#, PA0, PA2, PC2, PC3, PC4, PC5, PC6, PC7, PD0, PD1, PD4, PD5]
+  NFET:
+    type: MLAB NFET4X01B
+    show_pincount: false
+    pinlabels: [GND, VCC, IN3, OUT3+, OUT3-]
+  Buzzer:
+    type: SC235 AF
+    show_pincount: false
+    pinlabels: [GND, VCC]
+  Reset_Button:
+    type: GQ12B-10/R/A
+    show_pincount: false
+    pincount: 2
+  Rotor_Button:
+    type: GQ12B-10/R/A
+    show_pincount: false
+    pincount: 2
+  Platform_LED_1:
+    show_pincount: false
+    pincount: 2
+    pinlabels: [GND, VCC]
+  Platform_LED_2:
+    show_pincount: false
+    pincount: 2
+    pinlabels: [GND, VCC]
+  Servo_Connector:
+    show_pincount: false
+    pinlabels: [Rotor_Servo_SIG, GND, 5v, Lock_Servo_SIG]
+  Confirm_Btn_Connector:
+    show_pincount: false
+    pinlabels: [GND, LED1+Buzzer, LED2, Btn]
+
+cables:
+  PW_1:
+    show_name: false
+    show_wirecount: false
+    colors: [GY, GY, OG, OG, WH, GN, GY, OG, WH, GN]
+  PW_2:
+    show_name: false
+    show_wirecount: false
+    colors: [GY, OG]
+  PW_3:
+    show_name: false
+    show_wirecount: false
+    colors: [GY, OG, GN, OG, YE, WH, OG, GY, GN]
+  PW_4:
+    show_name: false
+    show_wirecount: false
+    colors: [GN, WH]
+  PW_5:
+    show_name: false
+    show_wirecount: false
+    colors: [BN, GN, BN, GN, WH, OG, WH, OG]
+
+connections:
+  -
+    - Power_Connector: [2, 2, 3, 3]
+    - PW_1: [1-4]
+    - Power_Module: [1, 1, 2, 2]
+  -
+    - Power_Connector: [1, 4]
+    - PW_1: [5-6]
+    - RS232: [4, 3]
+  -
+    - Power_Module: [1, 3]
+    - PW_2: [1-2]
+    - RS232: [1, 2]
+  -
+    - Power_Module: [1, 3]
+    - PW_2: [1-2]
+    - NFET: [1, 2]
+  -
+    - RS232: [1, 2, 5, 6]
+    - PW_3: [1, 2, 4, 5]
+    - Arduino: [1, 2, 13, 12]
+  -
+    - NFET: [3]
+    - PW_3: [3]
+    - Arduino: [4]
+  -
+    - NFET: [5, 4]
+    - PW_4: [1-2]
+    - Buzzer: [1-2]
+  -
+    - Arduino: [1, 10]
+    - PW_5: [1-2]
+    - Reset_Button: [1-2]
+  -
+    - Arduino: [1, 6]
+    - PW_5: [3-4]
+    - Rotor_Button: [1-2]
+  -
+    - Arduino: [1, 8]
+    - PW_5: [5-6]
+    - Platform_LED_1: [1-2]
+  -
+    - Arduino: [1, 9]
+    - PW_5: [7-8]
+    - Platform_LED_2: [1-2]
+  -
+    - Servo_Connector: [2, 3]
+    - PW_1: [7, 8]
+    - Power_Module: [1, 2]
+  -
+    - Servo_Connector: [4, 1]
+    - PW_1: [9, 10]
+    - Arduino: [14, 15]
+  -
+    - Confirm_Btn_Connector: [1-4]
+    - PW_3: [6-9]
+    - Arduino: [1, 5, 7, 11]
+
+tweak:
+  override:
+    graph:
+      ranksep: "1"  # Reduce the horizontal spacing (default 2)
+    PW_1: &hide_table
+      shape: none  # Hide the surrounding frame
+      fontsize: "0.1"  # Reduce the space needed for text
+      fontcolor: white  # Same as background to hide the text
+    PW_2:
+      <<: *hide_table
+    PW_3:
+      <<: *hide_table
+    PW_4:
+      <<: *hide_table
+    PW_5:
+      <<: *hide_table
