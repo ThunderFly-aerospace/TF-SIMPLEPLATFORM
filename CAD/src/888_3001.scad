@@ -20,7 +20,7 @@ module 888_3001() {
 			// axle holder
 			translate([0, -35, 41])
 			rotate([-90, 0, 0])
-			cylinder(d=20, h=40, $fn=30);
+			cylinder(d=20, h=40, $fn=90);
 				
 			// servo holder
 			translate([-9.5, -40, -6])
@@ -57,20 +57,20 @@ module 888_3001() {
 		translate([0, -20, 41])
 		rotate([90, 0, 0])
 		hull() {
-			cylinder(d=90, h=12, $fn=90);
+			cylinder(d=90, h=12, $fn=240);
 
 			translate([0, 30, 0])
-			cylinder(d=90, h=12, $fn=90);
+			cylinder(d=90, h=12, $fn=240);
 		}
 
 		// Rotor lock arm holders cutout
 		translate([0, -5, 41])
 		rotate([90, 0, 0])
 		hull() {
-			cylinder(d=35, h=18, $fn=30);
+			cylinder(d=35, h=18, $fn=90);
 
 			translate([-60, 0, 0])
-			cylinder(d=35, h=18, $fn=30);
+			cylinder(d=35, h=18, $fn=90);
 		}
 
 		// Rotor lock axle hole
@@ -79,13 +79,13 @@ module 888_3001() {
 		// Fitted bolt M6x40
 		union() {
 			translate([0, 0, -40])
-			cylinder(d=6, h=80, $fn=30);
+			cylinder(d=6, h=80, $fn=60);
 
 			translate([0, 0, -20])
-			cylinder(d=8, h=45, $fn=30);
+			cylinder(d=8, h=45, $fn=60);
 
 			translate([0, 0, -20+40])
-			cylinder(d=18, h=10, $fn=30);
+			cylinder(d=18, h=10, $fn=60);
 
 			translate([0, 0, -30])
 			cylinder(d=15, h=10, $fn=6);
