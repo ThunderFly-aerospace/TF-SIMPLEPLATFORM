@@ -17,7 +17,7 @@ module 888_3005() {
 
 			// holders connector
 			translate([0, 40.5, 0])
-			cube([80, 9.5, 25]);
+			cube([80.5, 9.5, 25]);
 
 			// tube holder
 			hull() {
@@ -38,9 +38,9 @@ module 888_3005() {
 		translate([20, 40, 25/2])
 		rotate([-90, 0, 0])
 		hull() {
-			cylinder(d=12, h=12, $fn=30);
+			cylinder(d=12, h=12, $fn=60);
 			translate([40, 0, 0])
-			cylinder(d=12, h=12, $fn=30);
+			cylinder(d=12, h=12, $fn=60);
 		}
 
 		// hair holder slots cutouts
@@ -60,39 +60,35 @@ module 888_3005() {
 
 		// bottom bolts
 		translate([-10, 55, 4])
-		union() {
+		{
 			rotate([90, -90, 0])
-			union() {
-				cylinder(d=3.2, h=100, $fn=30);
-					
-				cylinder(d=8, h=50, $fn=30);
+			{
+				cylinder(d=3.2, h=100, $fn=60);				
+				cylinder(d=7.99, h=50, $fn=60);
 			}
 
 			translate([0, 0, 17])
 			rotate([90, -90, 0])
-			union() {
-				cylinder(d=3.2, h=100, $fn=30);
-					
-				cylinder(d=8, h=50, $fn=30);
+			{
+				cylinder(d=3.2, h=100, $fn=60);	
+				cylinder(d=7.99, h=50, $fn=60);
 			}
 		}
 
 		// top bolts
 		translate([90, 55, 4])
-		union() {
+		{
 			rotate([90, -90, 0])
-			union() {
-				cylinder(d=3.2, h=100, $fn=30);
-					
-				cylinder(d=8, h=50, $fn=30);
+			{
+				cylinder(d=3.2, h=100, $fn=60);		
+				cylinder(d=7.99, h=50, $fn=60);
 			}
 
 			translate([0, 0, 17])
 			rotate([90, -90, 0])
-			union() {
-				cylinder(d=3.2, h=100, $fn=30);
-					
-				cylinder(d=8, h=50, $fn=30);
+			{
+				cylinder(d=3.2, h=100, $fn=60);		
+				cylinder(d=7.99, h=50, $fn=60);
 			}
 		}
 
@@ -100,7 +96,7 @@ module 888_3005() {
 		union() {
 			translate([0, 0, 25/2])
 			rotate([0, -90, 0])
-			cylinder(d=12.5, h=18, $fn=50);
+			cylinder(d=12.5, h=18, $fn=70);
 
 
 			translate([-30, -20, -2])

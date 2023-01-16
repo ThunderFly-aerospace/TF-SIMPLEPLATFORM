@@ -4,6 +4,7 @@ use <../lib/ALU_profile.scad>
 use <../888_2001.scad>
 use <../888_2002.scad>
 use <../888_2004.scad>
+use <../888_2005.scad>
 
 
 module main_box() {
@@ -47,19 +48,11 @@ module main_box() {
 	// starting platform holders
 	translate([profile_length_x/2+ALU_profile_width/2+2.5, 0, box_point_z])
 	rotate([180, 0, 0])
-	888_2004();
+	888_2005();
 
 	translate([-profile_length_x/2-ALU_profile_width/2-2.5, 0, box_point_z+ALU_profile_width])
 	rotate([0, 0, 180])
 	888_2004();
-
-
-	// starting platform profile	
-	translate([0, 0, box_point_z+ALU_profile_width*.5])
-	rotate([0, 90+starting_platform_angle, 0])
-	translate([0, 0, -starting_platform_length/2])
-	color([.6, .6, .6])
-	ALU_profile(height=starting_platform_length);
 	
 	// corners of the box 888_2001
 	color([1, 1, 1])

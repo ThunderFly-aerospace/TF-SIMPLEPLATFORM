@@ -10,8 +10,9 @@ module 888_1005(side=true) {
 				translate([lock_axle_diameter/4, lock_push_arm_length, 0])
 				cylinder(d=lock_screws_dia*2, h=lock_depth, $fn=30);
 
-				translate([lock_hold_arm_length+(side?-1:1), 0, 0])
+				translate([lock_hold_arm_length, 0, lock_depth/2])
 				rotate([0, side?lock_tube_angle:-lock_tube_angle, 0])
+				translate([0, 0, -lock_depth/2])
 				cylinder(d=lock_axle_diameter+2, h=lock_depth, $fn=30);
 			}
 
@@ -53,7 +54,7 @@ module 888_1005(side=true) {
 				cylinder(d=.1, h=20, $fn=30);
 			}
 
-			translate([-lock_hold_arm_length+lock_axle_diameter/2, -lock_axle_diameter*2, -lock_depth/2])
+			translate([-lock_hold_arm_length+lock_axle_diameter/2, -lock_axle_diameter*2+.5, -lock_depth/2])
 			cube([lock_hold_arm_length-lock_axle_diameter+5, lock_axle_diameter*2, lock_depth*2]);
 
 			translate([-lock_hold_arm_length/2, -lock_axle_diameter*2-lock_tooth_width-0.5, -lock_depth/2])
@@ -61,9 +62,9 @@ module 888_1005(side=true) {
 		}
 
 		// tube holding hole
-		translate([lock_hold_arm_length+(side?-1:1), 0, -1])
+		translate([lock_hold_arm_length, 0, lock_depth/2])
 		rotate([0, side?lock_tube_angle:-lock_tube_angle, 0])
-		translate([0, 0, -lock_depth/2])
+		translate([0, 0, -lock_depth])
 		hull() {
 			cylinder(d=lock_grab_axle_dia, h=lock_depth*2, $fn=30);
 
