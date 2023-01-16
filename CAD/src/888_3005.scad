@@ -38,9 +38,9 @@ module 888_3005() {
 		translate([20, 40, 25/2])
 		rotate([-90, 0, 0])
 		hull() {
-			cylinder(d=12, h=12, $fn=30);
+			cylinder(d=12, h=12, $fn=60);
 			translate([40, 0, 0])
-			cylinder(d=12, h=12, $fn=30);
+			cylinder(d=12, h=12, $fn=60);
 		}
 
 		// hair holder slots cutouts
@@ -96,7 +96,7 @@ module 888_3005() {
 		union() {
 			translate([0, 0, 25/2])
 			rotate([0, -90, 0])
-			cylinder(d=12.5, h=18, $fn=50);
+			cylinder(d=12.5, h=18, $fn=70);
 
 
 			translate([-30, -20, -2])

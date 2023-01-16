@@ -96,10 +96,10 @@ module 888_3001() {
 		mirror_copy()
 		translate([42, 0, 0])
 		union() {
-			cylinder(d=6.5, h=20, $fn=30);
+			cylinder(d=6.5, h=20, $fn=60);
 
 			translate([0, 0, 15])
-			cylinder(d=16, h=80, $fn=30);
+			cylinder(d=15.99, h=80, $fn=60);
 		}
 
 		rotate([90, 0, 0])
@@ -108,10 +108,10 @@ module 888_3001() {
 			mirror_copy()
 			translate([42, 0, 0])
 			union() {
-				cylinder(d=6.5, h=20, $fn=30);
+				cylinder(d=6.5, h=20, $fn=60);
 
 				translate([0, 0, 15])
-				cylinder(d=16, h=80, $fn=30);
+				cylinder(d=15.99, h=80, $fn=60);
 			}
 		}
 
@@ -136,7 +136,7 @@ module 888_3001() {
 
 888_3001();
 
-rotate([0, 90, 0])
+/*rotate([0, 90, 0])
 translate([0, 0, -100])
 #ALU_profile(height=200);
 
@@ -157,5 +157,5 @@ rotate([0, 0, 180])
 #union() {
 	888_3002();
 	888_3002(false);
-}
+}*/
 
