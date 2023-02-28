@@ -1,5 +1,3 @@
 *.amf
-*.gcode
-*.png
 *.dep
 CAD/json/*.json
