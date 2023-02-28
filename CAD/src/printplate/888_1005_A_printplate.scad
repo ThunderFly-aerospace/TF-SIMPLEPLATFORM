@@ -1,4 +1,4 @@
-//@set_slicing_config(../../slicing/default.ini)
+//@set_slicing_config(../../slicing/gensupport.ini)
 include <../../parameters.scad>
 
 use <../888_1005.scad>

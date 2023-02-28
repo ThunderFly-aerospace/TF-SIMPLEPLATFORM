@@ -4,8 +4,8 @@ SOURCES=$(wildcard $(SRC_DIR)/*.scad)
 AMF_TARGETS=$(patsubst $(SRC_DIR)/%.scad, $(AMF_DIR)/%.amf, $(SOURCES))
 GCD_TARGETS=$(patsubst $(SRC_DIR)/%.scad, $(GCD_DIR)/%.gcode, $(SOURCES))
 
-OPENSCAD?=openscad
-SLICER?=slic3r
+OPENSCAD_BIN?=openscad
+SLIC3R_BIN?=prusa-slicer
 
 NAME_PREFIX?=''
 SLIC3R_PROFILE?=''
