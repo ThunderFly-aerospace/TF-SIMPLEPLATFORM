@@ -2,7 +2,7 @@ include <../parameters.scad>
 use <./lib/ALU_profile.scad>
 use <./lib/handy_lib.scad>
 
-$fn=30;
+$fn=90;
 height_offset = (profile_length_x+5)/2*tan(starting_platform_angle);
 
 module 888_2005() {
@@ -19,7 +19,7 @@ module 888_2005() {
 	
 			mirror_copy([0, 1, 0])
 			hull() {
-				translate([0, -17.5, 3])
+				translate([0, -17.5, 2.5])
 				cube([ALU_profile_width, 5, 5], true);
 
 				translate([0, -25, ALU_profile_width/2])
@@ -29,6 +29,13 @@ module 888_2005() {
 				translate([-50, -25, height_offset])
 				rotate([-90, 0, 0])
 				cylinder(d=20, h=10);
+            
+                r=10;
+                l=50-ALU_profile_width/2;
+                h=height_offset;
+                angl=atan2(h,l)-asin(r/sqrt(l*l+h*h));
+                echo("move:", ALU_profile_width/2);
+                echo("rotate:", angl);
 			}
 
 			translate([0, -20, 7.5])
@@ -61,3 +68,4 @@ ALU_profile(height=starting_platform_length);
 
 translate([0, 0, ALU_profile_width/2])
 888_2005();
+

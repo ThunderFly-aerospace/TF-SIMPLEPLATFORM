@@ -2,13 +2,13 @@ include <../parameters.scad>
 use <./lib/ALU_profile.scad>
 
 
-$fn=30;
+$fn=90;
 height_offset = (profile_length_x+5)/2*tan(starting_platform_angle);
 
 
 module cep_8_70() {
-	cylinder(d=8, h=70, $fn=30);
-	cylinder(d=15, h=7, $fn=30);
+	cylinder(d=8, h=70, $fn=90);
+	cylinder(d=15, h=7, $fn=90);
 
 	translate([0, -15, 65/2+1])
 		rotate([0, 90, 0])
