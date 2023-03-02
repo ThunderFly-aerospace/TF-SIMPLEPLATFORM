@@ -74,7 +74,7 @@ jobs:
             arduino-cli core install MightyCore:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json,https://mcudude.github.io/MightyCore/package_MCUdude_MightyCore_index.json > /dev/null
             
             PLATFORM=MightyCore:avr
-            arduino-cli compile --verbose --warnings all --fqbn MightyCore:avr:1284:BOD=disabled,LTO=Os,${{ matrix.fqbn }},variant=modelP --build-property --build-path fw/${{ matrix.type }}/build/  fw/${{ matrix.type }}
+            arduino-cli compile --verbose --warnings all --fqbn MightyCore:avr:1284:BOD=disabled,LTO=Os,${{ matrix.fqbn }},variant=modelP --build-path fw/${{ matrix.type }}/build/  fw/${{ matrix.type }}
 
             cd fw/${{ matrix.type }}/build/
             find -type f -name "*.hex" -exec bash -c 'mv $0 fw_${{ matrix.type }}_${{ matrix.name }}.'"${NEXTBUILD}-${BT}"'$(echo $0|sed -e "s/\.\///1"|sed -e "s/${{ matrix.type }}\.ino//g")' {} \;
