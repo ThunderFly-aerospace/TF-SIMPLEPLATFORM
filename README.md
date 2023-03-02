@@ -1,4 +1,4 @@
-# Simple-platform
+# TF-SIMPLEPLATFORM - UAV autogyro takeof platform
 
 Device for launching unmanned drones (especialy autogyro type) from moving platforms (e.g. automobile roof).
 
