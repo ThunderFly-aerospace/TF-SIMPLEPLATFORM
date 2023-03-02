@@ -73,7 +73,7 @@ jobs:
             arduino-cli core update-index --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json,https://mcudude.github.io/MightyCore/package_MCUdude_MightyCore_index.json > /dev/null
             arduino-cli core install MightyCore:avr --additional-urls https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json,https://mcudude.github.io/MightyCore/package_MCUdude_MightyCore_index.json > /dev/null
             
-            arduino-cli core install NMEAParser > /dev/null
+            arduino-cli lib install NMEAParser > /dev/null
             
             PLATFORM=MightyCore:avr
             arduino-cli compile --verbose --warnings all --fqbn MightyCore:avr:1284:BOD=disabled,LTO=Os,${{ matrix.fqbn }},variant=modelP --build-path fw/${{ matrix.type }}/build/  fw/${{ matrix.type }}
