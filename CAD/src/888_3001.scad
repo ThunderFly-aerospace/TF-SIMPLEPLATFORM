@@ -102,11 +102,11 @@ module 888_3001() {
 			cylinder(d=15.99, h=80, $fn=60);
 		}
 
-		rotate([90, 0, 0])
+		#rotate([90, 0, 0])
 		translate([-5, 0, 5])
 		union() {
 			mirror_copy()
-			translate([42, 0, 0])
+			translate([41, 0, 0])
 			union() {
 				cylinder(d=6.5, h=20, $fn=60);
 
