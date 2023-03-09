@@ -64,7 +64,7 @@ module 888_3005() {
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);				
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);				
 				cylinder(d=7, h=50, $fn=60);
 			}
 
@@ -72,7 +72,7 @@ module 888_3005() {
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);	
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);	
 				cylinder(d=7, h=50, $fn=60);
 			}
 		}
@@ -83,7 +83,7 @@ module 888_3005() {
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);		
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);		
 				cylinder(d=7, h=50, $fn=60);
 			}
 
@@ -91,7 +91,7 @@ module 888_3005() {
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);		
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);		
 				cylinder(d=7, h=50, $fn=60);
 			}
 		}

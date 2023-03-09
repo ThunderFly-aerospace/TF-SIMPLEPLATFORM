@@ -69,45 +69,47 @@ module 888_3002(side=true) {
 		translate([-12, -10, 26])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
 			
 			cylinder(d=8, h=5, $fn=30);
 
 			translate([0, 0, 17])
-			cylinder(d=6, h=10, $fn=6);
+            rotate([0,0,35])
+			cylinder(d=M3_nut_diameter, h=10, $fn=6);
 		}
 
 		translate([12, -10, 26])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
 			
 			cylinder(d=8, h=5, $fn=30);
 
 			translate([0, 0, 17])
-			cylinder(d=6, h=10, $fn=6);
+            rotate([0,0,-35])
+			cylinder(d=M3_nut_diameter, h=10, $fn=6);
 		}
 
 		translate([-12, -10, 12])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
 			
 			cylinder(d=8, h=5, $fn=30);
 
 			translate([0, 0, 17])
-			cylinder(d=6, h=10, $fn=6);
+			cylinder(d=M3_nut_diameter, h=10, $fn=6);
 		}
 
 		translate([12, -10, 12])
 		rotate([-90, 0, 0])
 		union() {
-			cylinder(d=3.2, h=30, $fn=30);
+			cylinder(d=M3_screw_diameter, h=30, $fn=30);
 			
 			cylinder(d=8, h=5, $fn=30);
 
 			translate([0, 0, 17])
-			cylinder(d=6, h=10, $fn=6);
+			cylinder(d=M3_nut_diameter, h=10, $fn=6);
 		}
 
 		// bearing hole
@@ -116,10 +118,10 @@ module 888_3002(side=true) {
 		union() {
 			cylinder(d=20, h=30, $fn=30);
 
-			cylinder(d=22, h=7.5, $fn=30);
+			cylinder(d=22.2, h=7.5, $fn=90);
 
 			translate([0, 0, 21-8])
-			cylinder(d=22, h=20, $fn=30);
+			cylinder(d=22.2, h=20, $fn=90);
 		}
 
 		// part gap

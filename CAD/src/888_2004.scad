@@ -61,7 +61,7 @@ module 888_2004() {
 		translate([-profile_length_x/2, 0, -ALU_profile_width/2])
 		rotate([0, -90-starting_platform_angle, 0])
 		translate([ALU_profile_width/2, 0, 0])
-		cube([ALU_profile_width*2, ALU_profile_width, 1000], true);
+		cube([ALU_profile_width*2, ALU_profile_width+0.2, 1000], true);
 		
 		translate([0, -30, height_offset-ALU_profile_width/2])
 		rotate([-90, 0, 0])

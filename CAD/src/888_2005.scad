@@ -19,14 +19,15 @@ module 888_2005() {
 	
 			mirror_copy([0, 1, 0])
 			hull() {
-				translate([0, -17.5, 2.5])
+                add=0.15;
+				translate([0, -17.5-add, 2.5])
 				cube([ALU_profile_width, 5, 5], true);
 
-				translate([0, -25, ALU_profile_width/2])
+				translate([0, -25-add, ALU_profile_width/2])
 				rotate([-90, 0, 0])
 				cylinder(d=25, h=10);
 
-				translate([-50, -25, height_offset])
+				translate([-50, -25-add, height_offset])
 				rotate([-90, 0, 0])
 				cylinder(d=20, h=10);
             

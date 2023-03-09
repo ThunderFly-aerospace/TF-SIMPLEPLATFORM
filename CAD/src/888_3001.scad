@@ -102,7 +102,7 @@ module 888_3001() {
 			cylinder(d=15.99, h=80, $fn=60);
 		}
 
-		#rotate([90, 0, 0])
+		rotate([90, 0, 0])
 		translate([-5, 0, 5])
 		union() {
 			mirror_copy()
@@ -122,10 +122,11 @@ module 888_3001() {
 			mirror_copy()
 			translate([49.1/2, 10/2, 0])
 			union() {
-				cylinder(d=3, h=20, $fn=30);
+				cylinder(d=M3_screw_diameter, h=20, $fn=30);
 
 				translate([0, 0, 10])
-				cylinder(d=5.6, h=80, $fn=6);
+				rotate([0,0,30]) 
+                cylinder(d=M3_nut_diameter, h=80, $fn=6);
 
 				translate([0, 0, 15])
 				cylinder(d=8, h=80, $fn=30);

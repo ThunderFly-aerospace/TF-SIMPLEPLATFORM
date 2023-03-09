@@ -64,20 +64,20 @@ module 888_3006() {
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);
 				cylinder(d=7, h=45, $fn=60);
 				translate([0, 0, 30])
-                    cylinder(d=5.6, h=20, $fn=6);
+                    cylinder(d=M3_nut_diameter, h=20, $fn=6);
 			}
 
 			translate([0, 0, 17])
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);
 				cylinder(d=7, h=45, $fn=60);
 				translate([0, 0, 30])
-                    cylinder(d=5.6, h=20, $fn=6);
+                    cylinder(d=M3_nut_diameter, h=20, $fn=6);
 			}
 		}
 
@@ -87,20 +87,20 @@ module 888_3006() {
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);
 				cylinder(d=7, h=45, $fn=60);
 				translate([0, 0, 30])
-                    cylinder(d=5.6, h=20, $fn=6);
+                    cylinder(d=M3_nut_diameter, h=20, $fn=6);
 			}
 
 			translate([0, 0, 17])
 			rotate([90, -90, 0])
 			{
                 translate([0,0,51])
-                    cylinder(d=3.2, h=100, $fn=60);
+                    cylinder(d=M3_screw_diameter, h=100, $fn=60);
 				cylinder(d=7, h=45, $fn=60);
 				translate([0, 0, 30])
-                    cylinder(d=5.6, h=20, $fn=6);
+                    cylinder(d=M3_nut_diameter, h=20, $fn=6);
 			}
 		}
 
