@@ -49,7 +49,7 @@ serial_msg::serial_msg(char *msg) {
 serial_msg::parse_msg() {
   int parsed_chars = 0;
   
-  while(parsed_char < sizeof(raw_msg)) {
+  while(parsed_chars < sizeof(raw_msg)) {
     
     parsed_chars++;
   }
