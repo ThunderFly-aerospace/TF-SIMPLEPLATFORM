@@ -51,12 +51,12 @@ module lock() {
 	color([0.2, 0.5, 0.8])
 	cube([1, lock_arm_move_x*2, 1], center=true);
 
-	translate([.01, 0, -rail_position])
+	translate([3.5, 0, -rail_position])
 	rotate([0, -90, 0])
 	color([1, .1, .1])
 	888_1004();
 
-	translate([0, joint_arm_move_x, -joint_arm_move_y])
+	/*translate([0, joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
 	color([1, .1, .1])
 	888_1007();
@@ -74,19 +74,19 @@ module lock() {
 	translate([-5, 0, -(lock_arms_joint_offset+rail_move+servo_joint_offset)])
 	rotate([0, 90, 0])
 	color([1, .1, .1])
-	888_1007();
+	888_1007();*/
 
 	translate([-5, joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
 	rotate([0, 0, -joint_arm_angle])
 	color([1, .1, .1])
-	888_1006();
+	888_1006_A();
 
 	translate([-10, -joint_arm_move_x, -joint_arm_move_y])
 	rotate([0, 90, 0])
 	rotate([0, 0, joint_arm_angle])
 	color([1, .1, .1])
-	888_1006();
+	888_1006_B();
 
 	translate([lock_depth+5.5, .1, 0])
 	rotate([0, -90, 0])
