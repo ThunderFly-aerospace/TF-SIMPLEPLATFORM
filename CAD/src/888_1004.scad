@@ -13,7 +13,7 @@ module 888_1004() {
                         cylinder(d=19, h=0.1, center=true,$fn=90);
                 
                 for(i=[-1,1])
-                    translate([i*servo_joint_offset/2,0,-7.5+0.05])
+                    translate([i*servo_joint_offset/2,0,-5.5+0.05])
                         cylinder(d=10, h=0.1, center=true,$fn=90);
             }
 
