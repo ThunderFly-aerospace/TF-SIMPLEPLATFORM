@@ -6,25 +6,35 @@ use <./lib/ALU_profile.scad>
 module 888_1004() {
 	difference() {
 		union() {
-			translate([0, 0, -5])
-			cube([10+servo_joint_offset, 12, 3], center=true);
+            hull()
+            {
+                for(i=[-1,1])
+                    translate([i*servo_joint_offset/2,0,-0.05])
+                        cylinder(d=19, h=0.1, center=true,$fn=90);
+                
+                for(i=[-1,1])
+                    translate([i*servo_joint_offset/2,0,-7.5+0.05])
+                        cylinder(d=10, h=0.1, center=true,$fn=90);
+            }
 
-			translate([0, 0, -5/2])
-			cube([10+servo_joint_offset, 8.2, 5], center=true);
+            hull()
+            {
+                for(i=[-1,1])
+                    translate([i*servo_joint_offset/2,0,0])
+                        cylinder(d=8.0, h=6, center=true,$fn=90);
+            }
 		}
 
-		translate([servo_joint_offset/2, 0, -7])
-		union() {
-            translate([0,0,3.9])
-                cylinder(d=M3_screw_diameter, h=8, $fn=30);
-			cylinder(d=M3_nut_diameter, h=M3_nut_height+1, $fn=6);
-		}
+        for(i=[-1,1])
+        {
+            translate([i*servo_joint_offset/2, 0, -7])
+            {
+                translate([0,0,8-2.8])
+                    cylinder(d=M3_screw_diameter, h=16, $fn=30);
+                translate([0,0,-8-3])
+                cylinder(d=M3_nut_diameter, h=16, $fn=6);
+            }
 
-		translate([-servo_joint_offset/2, 0, -7])
-		union() {
-            translate([0,0,3.9])
-                cylinder(d=M3_screw_diameter, h=8, $fn=30);
-			cylinder(d=M3_nut_diameter, h=M3_nut_height+1, $fn=6);
 		}
 	}
 }
@@ -32,7 +42,7 @@ module 888_1004() {
 
 888_1004();
 
-
-translate([-100, 0, -ALU_profile_width/2])
+//použivame jiny profil
+/*translate([-100, 0, -ALU_profile_width/2+2.5])
 rotate([0, 90, 0])
-#ALU_profile(height=200);
+#ALU_profile(height=200); */
