@@ -3,4 +3,7 @@ include <../../parameters.scad>
 
 use <../888_1007.scad>
 
-888_1007();
+for(j=[-10,10])
+for(i=[-10,10])
+translate([i,j,0])
+    888_1007();
