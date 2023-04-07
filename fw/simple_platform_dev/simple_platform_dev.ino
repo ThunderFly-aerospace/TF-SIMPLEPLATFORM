@@ -20,23 +20,23 @@ Servo servo_rotor;
 // Jelikož aktuálně platforma zpracovává jen 2 zprávy, tak je hodnota 2. (knihovna umí pouze přijímat)
 NMEAParser<2> parser;
 
-#define reset_btn_pin 22      // resetovací tlacítko
-#define prep_btn_pin 18       // tlačítko na plácačku
-#define confirm_btn_pin 23    // potvrzovací tlačítko (v kabině)
-#define base_led_1_pin 20     // ledka na platformě (reprezentuje stav zámku)
-#define base_led_2_pin 21     // ledka na platformě (reprezentuje zamknutý stav platformy)
-#define confirm_led_1_pin 26  // ledka na tlačítku spojená se bzučákem (reprezentuje stav v jakém platforma je)
-#define confirm_led_2_pin 19  // ledka na tlačítku (reprezentuje stav zámku)
-#define servo_lock_pin 12     // servo zámku
-#define servo_rotor_pin 13    // servo plácačky
-#define buzzer_pin_1 A0       // hlasitý pípák na platformě
+#define reset_btn_pin PC6      // resetovací tlacítko
+#define prep_btn_pin PC2       // tlačítko na plácačku
+#define confirm_btn_pin PC7    // potvrzovací tlačítko (v kabině)
+#define base_led_1_pin PC4     // ledka na platformě (reprezentuje stav zámku)
+#define base_led_2_pin PC5     // ledka na platformě (reprezentuje zamknutý stav platformy)
+#define confirm_led_1_pin PA2  // ledka na tlačítku spojená se bzučákem (reprezentuje stav v jakém platforma je)
+#define confirm_led_2_pin PC3  // ledka na tlačítku (reprezentuje stav zámku)
+#define servo_lock_pin PD4     // servo zámku
+#define servo_rotor_pin PD5    // servo plácačky
+#define buzzer_pin_1 PA0       // hlasitý pípák na platformě
 
 
 ///////////////////////////nepoužito
-#define led_1 28
-#define led_2 29
-#define led_3 30
-#define led_4 31
+#define led_1 PA4
+#define led_2 PA5
+#define led_3 PA6
+#define led_4 PA7
 ///////////////////////////////////////
 
 
