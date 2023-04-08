@@ -4,8 +4,9 @@ Device for launching unmanned drones (especialy autogyro type) from moving platf
 
 ![TF-SIMPLEPLATFORM with TF-G2 takeoff](doc/img/TF-G2_takeoff.gif)
 
-
 The TF-SIMPLEPLATFORM is designed for launching of the unmanned [autogyro TF-G2](https://github.com/ThunderFly-aerospace/TF-G2/). Thanks to the combination of the this starting platform and the automatic takeoff mode of the TF-G2 unmanned autogyro, it is possible to perform safe and almost unattended takeoff. Platform is controlled from GCS based on realtime data from the UAV trough data-link. The platform can be disconnected manually (by operator) due to service operations.
+
+The goal of the platform and automatic takeoff solution is to maximize the simplicity of the takeoff process and protect drone operators from external influences, such as adverse weather conditions.
 
 ## Parameters
 
@@ -21,13 +22,12 @@ The TF-SIMPLEPLATFORM is designed for launching of the unmanned [autogyro TF-G2]
 | Supported flight stack | PX4 | (MavLink protcol) |
 
 ## Clamps mount mechanism
-
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/33667517/145199846-9bce2bac-4c48-44a5-8a02-1203b1b1ec31.gif)
 
 ## Usage
-
-  1. ARM the autogyro
-  2. Push the trigger switch
+  1. Prepare all required equipment. Check if it is properly mounted and connected. 
+  1. ARM the autogyro, check all avionics. 
+  2. Push the trigger switch to releas rotor holder. 
   3. Run by car few tens of meters
   4. Autogyro will takeoff automatically from roof. 
 
@@ -59,8 +59,12 @@ The platform is equipped with a variety of actuators, sensors, control elements 
  - 2 LEDS on wired controller (Platform status)
  - 1 Buzzen on wired controller (Release status)
 
+### Platform control 
+The platform is typically controlled from a ground-station via USB or RS232. The platform is connected to the ground control station either through the USB port from internal box of the platform or directly through RS232. Once properly connected, it should be possible to communicate with the platform via a serial interface.
 
-<!-- 
+The ground stations from ThunderFly company are equipped with [software](https://github.com/ThunderFly-aerospace/TF-R1/blob/master/scripts/release_platform/release_platform_serial.py) that is capable of controlling the platform based on data obtained from the drone through the MAVLink network.
+
+## Technical images 
 ![TF-SIMPLEPLATFORM trigger switch](doc/img/trigger_switch.jpg)
-
-![TF-SIMPLEPLATFORM trigger switch connection](doc/img/zapojeni_tlacitka.jpg) -->
+![TF-SIMPLEPLATFORM trigger switch connection](doc/img/zapojeni_tlacitka.jpg)
+![TF-SIMPLEPLATFORM trigger switch connection](doc/img/box_wiring.jpg)
